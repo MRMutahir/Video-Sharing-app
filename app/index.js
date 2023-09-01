@@ -5,6 +5,7 @@ import { userrouter } from "./routes/user.js";
 import { videorouter } from "./routes/video.js";
 import { commentrouter } from "./routes/comment.js";
 import { authRoutes } from "./routes/auth.js";
+import cookieParser from "cookie-parser";
 
 let app = express();
 let port = 8800;
@@ -20,6 +21,7 @@ const connect = () => {
     });
 };
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userrouter);
 app.use("/api/video", videorouter);
@@ -27,9 +29,11 @@ app.use("/api/comment", commentrouter);
 app.use((error, req, res, next) => {
   const status = error.status || 500;
   const meassage = error.meassage || "Something went wrong ";
-  return  res.status(status).json({
-    succes : false
-  })
+  return res.status(status).json({
+    succes: false,
+    status,
+    meassage,
+  });
 });
 
 app.listen(port, () => {
