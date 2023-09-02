@@ -1,6 +1,15 @@
 import express from "express";
-import { test } from "../Controllers/video.js";
+import {
+  addVideo,
+  updateVideo,
+  deleteVideo,
+  getVideo,
+} from "../Controllers/video.js";
+import { verifytoken } from "../verifytoken.js";
 const videorouter = express.Router();
-// videorouter.get("/test", test);
+videorouter.post("/", verifytoken, addVideo);
+videorouter.put("/:id", verifytoken, updateVideo);
+videorouter.delete("/:id", verifytoken, deleteVideo);
+videorouter.get("/find/:id", getVideo);
 
 export { videorouter };

@@ -48,4 +48,27 @@ async function getuser(req, res, next) {
     res.status(500).json(error);
   }
 }
-export { update, deleted, getuser };
+
+// subscribe
+async function subscribe(req, res, next) {
+  await User.find(req.user.id, {
+    $push: { subscribedUsers: req.params.id },
+  });
+  await User.findById(req.userid, {
+    $inc: { subscribers: 1 },
+  });
+}
+
+// Unsubscribe
+async function Unsubscribe(req, res, next) {
+  await User.find(req.user.id, {
+    $pull: { subscribedUsers: req.params.id },
+  });
+  await User.findById(req.userid, {
+    $inc: { subscribers: -1 },
+  });
+}
+
+
+
+export { update, deleted, getuser, subscribe, Unsubscribe };

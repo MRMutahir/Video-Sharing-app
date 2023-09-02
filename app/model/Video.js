@@ -40,6 +40,6 @@ const VideoSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-let vedio = mongoose.model("vedio", VideoSchema);
+let Vedio = mongoose.model("vedio", VideoSchema);
 
-export { vedio };
+export { Vedio };
