@@ -31,6 +31,6 @@ const UserSshema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-let user = mongoose.model("user", UserSshema);
+let User = mongoose.model("user", UserSshema);
 
-export { user };
+export { User };

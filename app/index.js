@@ -26,15 +26,15 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userrouter);
 app.use("/api/video", videorouter);
 app.use("/api/comment", commentrouter);
-app.use((error, req, res, next) => {
-  const status = error.status || 500;
-  const meassage = error.meassage || "Something went wrong ";
-  return res.status(status).json({
-    succes: false,
-    status,
-    meassage,
-  });
-});
+// app.use((error, req, res, next) => {
+//   const status = error.status || 500;
+//   const meassage = error.meassage || "Something went wrong ";
+//   return res.status(status).json({
+//     succes: false,
+//     status,
+//     meassage,
+//   });
+// });
 
 app.listen(port, () => {
   connect();
