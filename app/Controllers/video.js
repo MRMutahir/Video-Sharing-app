@@ -11,7 +11,18 @@ async function addVideo(req, res) {
 }
 
 async function updateVideo(req, res) {
-  res.json("API CHL GI ");
+  const video = await Vedio.findById(req.params.id);
+  if (!video) return res.status(404).json("Video is not Found ");
+  if (req.user.id === video.userId) {
+    const updateVideo = await Vedio.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+  }
+  res.status(200).json(updateVideo);
 }
 async function deleteVideo(req, res) {
   res.json("API CHL GI ");
