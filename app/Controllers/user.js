@@ -39,10 +39,10 @@ async function deleted(req, res) {
 
 // GET USER
 async function getuser(req, res, next) {
-  console.log(req.params.id);
+  // console.log(req.params.id);
   try {
     const user = await User.findById(req.params.id);
-    console.log(user);
+    // console.log(user);
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json(error);
@@ -51,22 +51,35 @@ async function getuser(req, res, next) {
 
 // subscribe
 async function subscribe(req, res, next) {
-  await User.find(req.user.id, {
-    $push: { subscribedUsers: req.params.id },
-  });
-  await User.findById(req.userid, {
-    $inc: { subscribers: 1 },
-  });
+  try {
+    await User.findByIdAndUpdate(req.user.id, {
+      $push: { subscribedUsers: req.params.id },
+    });
+    await User.findByIdAndUpdate(req.params.id, {
+      $inc: { subscribers: 1 },
+    });
+    res.status(200).json("subscribe successfully")
+  } catch (error) {
+
+    res.status(500).json(error)
+  }
+
 }
 
 // Unsubscribe
 async function Unsubscribe(req, res, next) {
-  await User.find(req.user.id, {
-    $pull: { subscribedUsers: req.params.id },
-  });
-  await User.findById(req.userid, {
-    $inc: { subscribers: -1 },
-  });
+  try {
+    await User.findByIdAndUpdate(req.user.id, {
+      $pull: { subscribedUsers: req.params.id },
+    });
+    await User.findByIdAndUpdate(req.params.id, {
+      $inc: { subscribers: -1 },
+    });
+    res.status(200).json("Unsubscribe successfully")
+  } catch (error) {
+    res.status(500).json(error)
+  }
+
 }
 
 

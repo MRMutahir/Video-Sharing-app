@@ -5,6 +5,8 @@ import {
   deleteVideo,
   getVideo,
   view,
+  subscribes,
+  rondom, bytags, search
 } from "../Controllers/video.js";
 import { verifytoken } from "../verifytoken.js";
 const videorouter = express.Router();
@@ -14,7 +16,9 @@ videorouter.delete("/:id", verifytoken, deleteVideo);
 videorouter.get("/find/:id", getVideo);
 videorouter.get("/view/:id", view);
 // videorouter.get("/trend", trend);
-// videorouter.get("/rondom", rondom);
-// videorouter.get("/subscribes ", subscribes);
+videorouter.get("/rondom", rondom);
+videorouter.get("/subscribes", verifytoken, subscribes);
+videorouter.get("/tags", bytags);
+videorouter.get("/search", search);
 
 export { videorouter };

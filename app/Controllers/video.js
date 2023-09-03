@@ -1,3 +1,4 @@
+import { User } from "../model/User.js";
 import { Video } from "../model/Video.js";
 // ADD VIDEO
 
@@ -87,10 +88,52 @@ async function trend(req, res) {
 }
 async function subscribes(req, res) {
   try {
-    const video = await Video.findById(req.params.id);
-    res.status(200).json(video);
+    const user = await User.findById(req.user.id);
+    const subscribedChannels = user.subscribedUsers;
+    console.log(user);
+    console.log(subscribedChannels);
+
+    const list = await Promise.all(
+      subscribedChannels.map(async (channelId) => {
+        return await Video.find({ userId: channelId });
+      })
+    );
+    // console.log(list);
+    // Extract the data from the response and then apply .flat() and .sort()
+    const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
+    // console.log(responseData);
+
+    // Send the sorted list as the response
+    res.status(200).json(responseData);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+
+
+}
+
+
+async function bytags(req, res) {
+  const tags = req.query.tags.split(",")
+  try {
+    const videos = await Video.find({ tags: { $in: tags } }).limit(20);
+    res.status(200).json(videos);
   } catch (error) {
     res.status(500).json(error);
   }
 }
-export { addVideo, updateVideo, deleteVideo, getVideo, view };
+
+
+async function search(req, res) {
+  const query = req.query.q
+  console.log(query);
+  try {
+    const videos = await Video.find({title:{$regex :query,$options:"i"}})
+    res.status(200).json(videos);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+
+export { addVideo, updateVideo, deleteVideo, getVideo, view, subscribes, rondom, bytags ,search};
