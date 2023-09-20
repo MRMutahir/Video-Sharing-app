@@ -1,5 +1,6 @@
 import { json } from "express";
 import { User } from "../model/User.js";
+import { Video } from "../model/Video.js";
 
 // UPDATED USER
 
@@ -81,8 +82,30 @@ async function Unsubscribe(req, res, next) {
 
 async function like() {
   console.log("SALAM");
+  const userId = req.user.id;
+  const videoId = req.params.videoId;
+  try {
+    await Video.findByIdAndUpdate(videoId, {
+      $addToSet: { likes: userId },
+      $pull: { dislikes: userId },
+    });
+    res.status(200).json("The video has been liked.");
+  } catch (error) {
+    res.status(404).json(error);
+  }
 }
 async function dislike() {
-  console.log("SALAM");
+  // console.log("SALAM");
+  const userId = req.user.id;
+  const videoId = req.params.videoId;
+  try {
+    await Video.findByIdAndUpdate(videoId, {
+      $addToSet: { likes: userId },
+      $pull: { dislikes: userId },
+    });
+    res.status(200).json("The video has been disliked.");
+  } catch (error) {
+    res.status(404).json(error);
+  }
 }
 export { update, deleted, getuser, subscribe, Unsubscribe, like, dislike };
