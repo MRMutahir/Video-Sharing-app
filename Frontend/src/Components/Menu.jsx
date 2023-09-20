@@ -24,6 +24,8 @@ flex : 1;
 background-color : black;
 height: 100%;
 color: white;
+position: sticky;
+top: 0;
 `
 const Wrapper = styled.div`
 padding: 18px 26px ;
@@ -48,7 +50,7 @@ padding: 7.5px 0px;
 `
 const Hr = styled.hr`
   margin: 15px 0px;
-  border: 0.5px solid black ;
+  border: 0.5px solid #373737 ;
 `;
 const Login = styled.div``
 const Title = styled.h2`
@@ -56,6 +58,20 @@ const Title = styled.h2`
   font-weight: 500;
   color: #aaaaaa;
   margin-bottom: 20px;
+`;
+
+const Button = styled.button`
+padding: 5px 15px;
+background-color: transparent;
+border: 1px solid #3ea6ff;
+color: #3ea6ff;
+border-radius: 3px;
+font-weight: 500;
+margin-top: 10px;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 5px;
 `;
 function Menu() {
     return (
@@ -65,7 +81,10 @@ function Menu() {
                     <Img src={MRTubeLogo} />
                     MRTUBE
                 </Logo>
-                <Item>Home</Item>
+                <Item>
+                    <HomeIcon />
+                    Home
+                </Item>
                 <Item>
                     <ExploreOutlinedIcon />
                     Explore
@@ -86,12 +105,7 @@ function Menu() {
                 <Hr />
                 <Login>
                     Sign in to like videos, comment, and subscribe.
-                    {/* <Link to="signin" style={{ textDecoration: "none" }}>
-                    <Button>
-                        <AccountCircleOutlinedIcon />
-                        SIGN IN
-                    </Button>
-                </Link> */}
+                    <Button> <AccountCircleOutlinedIcon />  Sign in</Button>
                 </Login>
                 <Hr />
                 <Title>BEST OF LAMATUBE</Title>
