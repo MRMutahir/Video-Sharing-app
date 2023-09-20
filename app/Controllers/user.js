@@ -58,12 +58,10 @@ async function subscribe(req, res, next) {
     await User.findByIdAndUpdate(req.params.id, {
       $inc: { subscribers: 1 },
     });
-    res.status(200).json("subscribe successfully")
+    res.status(200).json("subscribe successfully");
   } catch (error) {
-
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
-
 }
 
 // Unsubscribe
@@ -75,13 +73,16 @@ async function Unsubscribe(req, res, next) {
     await User.findByIdAndUpdate(req.params.id, {
       $inc: { subscribers: -1 },
     });
-    res.status(200).json("Unsubscribe successfully")
+    res.status(200).json("Unsubscribe successfully");
   } catch (error) {
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
-
 }
 
-
-
-export { update, deleted, getuser, subscribe, Unsubscribe };
+async function like() {
+  console.log("SALAM");
+}
+async function dislike() {
+  console.log("SALAM");
+}
+export { update, deleted, getuser, subscribe, Unsubscribe, like, dislike };
