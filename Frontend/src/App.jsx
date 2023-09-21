@@ -6,6 +6,7 @@ import { darkTheme, lightTheme } from "./Utils/Theme";
 import { useState } from "react";
 import Home from "../src/Page/Home"
 import Sign from "../src/Page/Sign"
+import Video from "./Page/Video";
 import {
   BrowserRouter as Router,
   Route,
@@ -41,6 +42,9 @@ function App() {
               <Route path="/">
                 <Route index element={<Home />} />
                 <Route element={<Sign />} />
+                <Route path="video">
+                  <Route path=":id" element={<Video />} />
+                </Route>
               </Route>
             </Routes>
           </Wrapper>
