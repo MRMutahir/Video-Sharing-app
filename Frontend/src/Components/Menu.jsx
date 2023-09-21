@@ -73,6 +73,8 @@ display: flex;
 align-items: center;
 gap: 5px;
 `;
+
+
 function Menu({ darkmode, setdarkmode }) {
     return (
         <Container>
@@ -108,7 +110,7 @@ function Menu({ darkmode, setdarkmode }) {
                     <Button> <AccountCircleOutlinedIcon />  Sign in</Button>
                 </Login>
                 <Hr />
-                <Title>BEST OF LAMATUBE</Title>
+                <Title>BEST OF MRTUBE</Title>
                 <Item>
                     <LibraryMusicOutlinedIcon />
                     Music

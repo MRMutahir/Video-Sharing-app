@@ -27,25 +27,7 @@ function App() {
           <Navbar />
           <Wrapper>
             <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
-            <h1>Hi</h1>
+    
           </Wrapper>
         </Main>
       </Container>
