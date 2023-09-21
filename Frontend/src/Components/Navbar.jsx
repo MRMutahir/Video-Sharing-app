@@ -20,13 +20,12 @@ display: flex;
 width: 40%;
 justify-content: space-between;
 align-items: center;
-
 position: absolute;
 left: 0;
 right: 0;
 margin: auto;
 padding: 5px;
-border: 1px solid #ccc; border-radius: 3px;
+border: 1px solid #ccc; border-radius: 10px;
 `
 const Input = styled.input`
 border:  none;
