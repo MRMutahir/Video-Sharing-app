@@ -58,8 +58,43 @@ const Channel = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const Subscribe = styled.button``;
-const Channelinfo = styled.button``;
+
+const Channelinfo = styled.div`
+  display: flex;
+  gap: 25px;
+`;
+const ChannelDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 0.5 solid ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.text};
+`;
+const ChannelName = styled.span`
+  font-weight: 500;
+`;
+const ChannelCounter = styled.span`
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: ${({ theme }) => theme.textSoft};
+  font-size: 12px;
+`;
+const Discription = styled.p`
+  font-size: 14px;
+`;
+const Subscribe = styled.button`
+  background-color: #cc1a00;
+  color: white;
+  border: none;
+  height: max-content;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+`;
+const Image = styled.img`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+`;
 
 function Video() {
   return (
@@ -68,7 +103,7 @@ function Video() {
         <VideoWrapper>
           <iframe
             width="100%"
-            height="720"
+            height="420"
             src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
             title="YouTube video player"
             frameborder="0"
@@ -98,6 +133,21 @@ function Video() {
           </Buttons>
         </Details>
         <HR />
+        <Channel>
+          <Channelinfo>
+            <Image src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo" />
+            <ChannelDetails>
+              <ChannelName>code with MR</ChannelName>
+              <ChannelCounter>200k subscribe</ChannelCounter>
+              <Discription>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus
+                illo ipsum natus repudiandae? Recusandae, odio distinctio
+                reprehenderit tempora libero corporis.
+              </Discription>
+            </ChannelDetails>
+          </Channelinfo>
+          <Subscribe>Subscribe</Subscribe>
+        </Channel>
       </Content>
       <Recommendation>Recommendation</Recommendation>
     </Container>
