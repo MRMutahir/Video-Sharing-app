@@ -2,6 +2,8 @@ import Menu from "../src/Components/Menu"
 import Navbar from "../src/Components/Navbar"
 import styled, { ThemeProvider } from "styled-components"
 import './App.css'
+import { darkTheme, lightTheme } from "./Utils/Theme";
+import { useState } from "react";
 
 
 const Container = styled.div`
@@ -15,15 +17,36 @@ background-color: #181818;
 `;
 const Wrapper = styled.div``;
 function App() {
-
+  const [darkmode, setdarkmode] = useState(true)
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={darkmode ? darkTheme : lightTheme}>
       <Container>
-        <Menu />
+        <Menu darkmode={darkmode} setdarkmode={setdarkmode} />
         <Main>
           <Navbar />
-          <Wrapper><h1>Hi</h1></Wrapper>
+          <Wrapper>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+            <h1>Hi</h1>
+          </Wrapper>
         </Main>
       </Container>
     </ThemeProvider>

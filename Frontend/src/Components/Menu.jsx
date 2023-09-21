@@ -21,9 +21,9 @@ import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightne
 
 const Container = styled.div`
 flex : 1;
-background-color : black;
+background-color : ${({ theme }) => theme.bgLighter};
 height: 100%;
-color: white;
+color: ${({ theme }) => theme.text};
 position: sticky;
 top: 0;
 `
@@ -50,7 +50,7 @@ padding: 7.5px 0px;
 `
 const Hr = styled.hr`
   margin: 15px 0px;
-  border: 0.5px solid #373737 ;
+  border: 0.5px solid  ${({ theme }) => theme.soft} ;
 `;
 const Login = styled.div``
 const Title = styled.h2`
@@ -73,7 +73,7 @@ display: flex;
 align-items: center;
 gap: 5px;
 `;
-function Menu() {
+function Menu({ darkmode, setdarkmode }) {
     return (
         <Container>
             <Wrapper>
@@ -146,7 +146,10 @@ function Menu() {
                     <HelpOutlineOutlinedIcon />
                     Help
                 </Item>
-
+                <Item onClick={() => setdarkmode(!darkmode)}>
+                    <SettingsBrightnessOutlinedIcon />
+                    Light Mode
+                </Item>
             </Wrapper>
         </Container>
     )
