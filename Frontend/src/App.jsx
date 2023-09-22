@@ -1,35 +1,29 @@
-import Menu from "../src/Components/Menu"
-import Navbar from "../src/Components/Navbar"
-import styled, { ThemeProvider } from "styled-components"
-import './App.css'
+import Menu from "../src/Components/Menu";
+import Navbar from "../src/Components/Navbar";
+import styled, { ThemeProvider } from "styled-components";
+import "./App.css";
 import { darkTheme, lightTheme } from "./Utils/Theme";
 import { useState } from "react";
-import Home from "../src/Page/Home"
-import Sign from "../src/Page/Sign"
+import Home from "../src/Page/Home";
+import Sign from "../src/Page/Sign";
 import Video from "./Page/Video";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Routes
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import Signin from "./Page/Signin";
 // import Home from "@mui/icons-material/Home";
 
 const Container = styled.div`
-display : flex ;
-
+  display: flex;
 `;
 const Main = styled.div`
-flex:7;
-background-color: ${({ theme }) => theme.bg}
-
+  flex: 7;
+  background-color: ${({ theme }) => theme.bg};
 `;
 const Wrapper = styled.div`
-padding:22px 96px `;
-
+  padding: 22px 96px;
+`;
 
 function App() {
-  const [darkmode, setdarkmode] = useState(true)
+  const [darkmode, setdarkmode] = useState(true);
 
   return (
     <ThemeProvider theme={darkmode ? darkTheme : lightTheme}>
@@ -41,6 +35,7 @@ function App() {
             <Routes>
               <Route path="/">
                 <Route index element={<Home />} />
+                <Route path="signin" element={<Sign/>} />
                 <Route element={<Sign />} />
                 <Route path="video">
                   <Route path=":id" element={<Video />} />
@@ -51,7 +46,7 @@ function App() {
         </Main>
       </Container>
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;

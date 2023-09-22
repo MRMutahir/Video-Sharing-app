@@ -107,11 +107,14 @@ function Menu({ darkmode, setdarkmode }) {
         </Item>
         <Hr />
         <Login>
+          {" "}
           Sign in to like videos, comment, and subscribe.
-          <Button>
-            {" "}
-            <AccountCircleOutlinedIcon /> Sign in
-          </Button>
+          <Link to="signin" style={{ textDecoration: "none" }}>
+            <Button>
+              {" "}
+              <AccountCircleOutlinedIcon /> Sign in
+            </Button>
+          </Link>
         </Login>
         <Hr />
         <Title>BEST OF MRTUBE</Title>
