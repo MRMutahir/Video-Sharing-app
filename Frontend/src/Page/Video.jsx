@@ -103,13 +103,23 @@ function Video() {
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
+          {/* <iframe
             width="100%"
             height="420"
             src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe> */}
+
+          <iframe
+            width="853"
+            height="480"
+            src="https://www.youtube.com/embed/njC3p49OJWU"
+            title="Class 01 of JavaScript Crash Course Live | Intro, Variables, Data Types"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
           ></iframe>
         </VideoWrapper>

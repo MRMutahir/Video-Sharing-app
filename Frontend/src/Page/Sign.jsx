@@ -62,9 +62,6 @@ const Link = styled.div`
   margin-left: 30px;
 `;
 
-// const Container =  styld.div`
-
-// `
 function Sign() {
   return (
     <Container>
