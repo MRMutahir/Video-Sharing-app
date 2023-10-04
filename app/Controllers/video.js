@@ -73,6 +73,7 @@ async function rondom(req, res) {
   try {
     const videos = await Video.aggregate([{ $sample: { size: 40 } }]);
     res.status(200).json(videos);
+    // console.log("rodom videos");
   } catch (error) {
     res.status(500).json(error);
   }
@@ -108,13 +109,10 @@ async function subscribes(req, res) {
   } catch (error) {
     res.status(500).json(error);
   }
-
-
 }
 
-
 async function bytags(req, res) {
-  const tags = req.query.tags.split(",")
+  const tags = req.query.tags.split(",");
   try {
     const videos = await Video.find({ tags: { $in: tags } }).limit(20);
     res.status(200).json(videos);
@@ -123,17 +121,28 @@ async function bytags(req, res) {
   }
 }
 
-
 async function search(req, res) {
-  const query = req.query.q
+  const query = req.query.q;
   console.log(query);
   try {
-    const videos = await Video.find({title:{$regex :query,$options:"i"}})
+    const videos = await Video.find({
+      title: { $regex: query, $options: "i" },
+    });
     res.status(200).json(videos);
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
-
-export { addVideo, updateVideo, deleteVideo, getVideo, view, subscribes, rondom, bytags ,search};
+export {
+  addVideo,
+  updateVideo,
+  deleteVideo,
+  getVideo,
+  view,
+  subscribes,
+  rondom,
+  bytags,
+  search,
+  trend
+};
