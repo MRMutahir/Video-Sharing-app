@@ -38,5 +38,5 @@ app.use("/api/comment", commentrouter);
 
 app.listen(port, () => {
   connect();
-  console.log(" Server  Start");
+  console.log(" Server  Start", port);
 });
