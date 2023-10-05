@@ -1,4 +1,5 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
@@ -47,21 +48,23 @@ const Info = styled.div`
   color: ${({ theme }) => theme.textSoft};
 `;
 function Card({ type, Card }) {
+  // console.log(Card._id == "64f46e504b234353ada20ede");
+  console.log(Card);
   const [Channel, setChannel] = useState({});
   useEffect(() => {
-    fetchVideo();
+    fetchChannel();
   }, []);
 
   const fetchChannel = async () => {
     try {
-      const res = await axios.get(`http://localhost:8800/api/video/random`);
-      setVideos(res.data);
+      const res = await axios.get(`http://localhost:8800/api/user/64f46e504b234353ada20ede`);
+      setChannel(res.data);
     } catch (error) {
       console.log("err", error);
     }
   };
-
-  console.log(Card);
+  // console.log(Channel._id, ">>>>>>>>>>>>>>>>>>Channel>>>>>>>>>>>>>>>");
+  // console.log(Card, ">>>>>>>>>>>>>>>>Card>>>>>>>>>>>>");
 
   return (
     <Link to="/video/test" style={{ textDecoration: "none" }}>

@@ -19,7 +19,7 @@ const Home = ({type}) => {
     try {
       const res = await axios.get(`http://localhost:8800/api/video/${type}`);
       setVideos(res.data);
-      console.log(res);
+      // console.log(res);
     } catch (error) {
       console.log("err", error);
     }
