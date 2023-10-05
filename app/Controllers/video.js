@@ -69,7 +69,7 @@ async function view(req, res) {
     res.status(500).json(error);
   }
 }
-async function rondom(req, res) {
+async function random(req, res) {
   try {
     const videos = await Video.aggregate([{ $sample: { size: 40 } }]);
     res.status(200).json(videos);
@@ -141,7 +141,7 @@ export {
   getVideo,
   view,
   subscribes,
-  rondom,
+  random,
   bytags,
   search,
   trend

@@ -31,8 +31,9 @@ const Home = () => {
     <Container>
       {videos.map((video, index) => (
         // Pass the video data to the Card component and provide a unique key to each Card
-        <Card key={index} video={video} />
-      ))}
+        <Card  />
+        ))}
+     
     </Container>
   );
 };
