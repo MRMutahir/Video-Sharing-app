@@ -9,19 +9,17 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const Home = () => {
+const Home = ({type}) => {
   const [videos, setVideos] = useState([]);
-
   useEffect(() => {
     fetchVideo();
   }, []);
 
   const fetchVideo = async () => {
     try {
-      // Use the correct endpoint URL for fetching random videos
-      const res = await axios.get("http://localhost:8800/api/video/random");
+      const res = await axios.get(`http://localhost:8800/api/video/${type}`);
       setVideos(res.data);
-      console.log(res.data);
+      console.log(res);
     } catch (error) {
       console.log("err", error);
     }
@@ -30,10 +28,8 @@ const Home = () => {
   return (
     <Container>
       {videos.map((video, index) => (
-        // Pass the video data to the Card component and provide a unique key to each Card
-        <Card  />
-        ))}
-     
+        <Card key={video._id} Card={video} />
+      ))}
     </Container>
   );
 };

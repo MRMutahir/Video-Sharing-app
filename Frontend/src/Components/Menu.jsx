@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import  MRTubeLogo  from "./logo.png"
+import MRTubeLogo from "./logo.png";
 import { Link } from "react-router-dom";
 // import MRTubeLogo from "./logo.png";
 import HomeIcon from "@mui/icons-material/Home";
@@ -80,7 +80,7 @@ function Menu({ darkmode, setdarkmode }) {
       <Wrapper>
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <Logo>
-            <Img src={MRTubeLogo}/>
+            <Img src={MRTubeLogo} />
             MRTUBE
           </Logo>
         </Link>
@@ -88,14 +88,22 @@ function Menu({ darkmode, setdarkmode }) {
           <HomeIcon />
           Home
         </Item>
-        <Item>
-          <ExploreOutlinedIcon />
-          Explore
-        </Item>
-        <Item>
-          <SubscriptionsOutlinedIcon />
-          Subscriptions
-        </Item>
+
+        <Link to="trends" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <ExploreOutlinedIcon />
+            Explore
+          </Item>
+        </Link>
+        <Link
+          to="subscription"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Item>
+            <SubscriptionsOutlinedIcon />
+            Subscriptions
+          </Item>
+        </Link>
         <Hr />
         <Item>
           <VideoLibraryOutlinedIcon />
