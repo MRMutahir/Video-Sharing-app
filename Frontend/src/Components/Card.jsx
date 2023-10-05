@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { format } from "timeago.js";
+import  {format}  from "timeago.js";
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "360px"};
   margin-bottom: ${(props) => (props.type == "sm" ? "10px" : "45px")};
@@ -49,22 +49,22 @@ const Info = styled.div`
 `;
 function Card({ type, Card }) {
   // console.log(Card._id == "64f46e504b234353ada20ede");
-  console.log(Card);
+  // console.log(Card.userId);
   const [Channel, setChannel] = useState({});
   useEffect(() => {
     fetchChannel();
-  }, []);
+  }, [Card.userId]);
 
   const fetchChannel = async () => {
     try {
-      const res = await axios.get(`http://localhost:8800/api/user/64f46e504b234353ada20ede`);
+      const res = await axios.get(`http://localhost:8800/api/user/${Card.userId}`);
       setChannel(res.data);
     } catch (error) {
       console.log("err", error);
     }
   };
   // console.log(Channel._id, ">>>>>>>>>>>>>>>>>>Channel>>>>>>>>>>>>>>>");
-  // console.log(Card, ">>>>>>>>>>>>>>>>Card>>>>>>>>>>>>");
+  console.log(Channel, ">>>>>>>>>>>>>>>>Card>>>>>>>>>>>>");
 
   return (
     <Link to="/video/test" style={{ textDecoration: "none" }}>
@@ -73,7 +73,7 @@ function Card({ type, Card }) {
         <Details type={type}>
           <ChannelImage
             type={type}
-            src="https://cdn2.hubspot.net/hubfs/6062099/full%20stack%20%281%29.png"
+            src='https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg'
           />
           <Texts>
             <Title>{Card.title}</Title>
