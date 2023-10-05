@@ -3,12 +3,14 @@ import { Video } from "../model/Video.js";
 // ADD VIDEO
 
 async function addVideo(req, res) {
+  // console.log("add video");
+  // res.json(req.body)
   const newVedio = new Video({ userId: req.user.id, ...req.body });
   try {
     const saveVedio = await newVedio.save();
     res.status(200).json(saveVedio);
   } catch (error) {
-    res.status(500).json(" Vedio is Not Found ");
+    res.status(500).json(" video is Not Found ");
   }
 }
 //  UPDATE VIDEO

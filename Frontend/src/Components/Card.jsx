@@ -57,7 +57,7 @@ function Card({ type, Card }) {
 
   const fetchChannel = async () => {
     try {
-      const res = await axios.get(`http://localhost:8800/api/user/${Card.userId}`);
+      const res = await axios.get(`http://localhost:8800/api/video/find/64f3eaf160ec7a9f84a62405`);
       setChannel(res.data);
     } catch (error) {
       console.log("err", error);
