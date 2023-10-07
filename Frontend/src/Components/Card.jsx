@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import  {format}  from "timeago.js";
+import { format } from "timeago.js";
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "360px"};
   margin-bottom: ${(props) => (props.type == "sm" ? "10px" : "45px")};
@@ -47,34 +47,35 @@ const Info = styled.div`
 
   color: ${({ theme }) => theme.textSoft};
 `;
-function Card({ type, Card }) {
+function Card({ type, video }) {
   // console.log(Card._id == "64f46e504b234353ada20ede");
-  // console.log(Card.userId);
-  const [Channel, setChannel] = useState({});
+  // console.log(video._id);
+  const [channel, setChannel] = useState({});
   useEffect(() => {
     fetchChannel();
-  }, [Card.userId]);
+  }, [video._id]);
 
   const fetchChannel = async () => {
     try {
-      const res = await axios.get(`http://localhost:8800/api/video/find/64f3ed2a1c217dbb7dbb5197`);
+      const res = await axios.get(
+        `http://localhost:8800/api/video/find/${video._id}`
+        // `http://localhost:8800/api/video/find/65215f6c95da85b807ab67cc`
+      );
       setChannel(res.data);
     } catch (error) {
       console.log("err", error);
     }
   };
-  // console.log(Channel._id, ">>>>>>>>>>>>>>>>>>Channel>>>>>>>>>>>>>>>");
-  console.log(Channel, ">>>>>>>>>>>>>>>>Card>>>>>>>>>>>>");
+  console.log(channel, ">>>>>>>>>>>>>>>>>>Channel>>>>>>>>>>>>>>>");
+  // console.log(Channel, ">>>>>>>>>>>>>>>>Card>>>>>>>>>>>>");
+  // console.log(video, ">>>>>>>>>>>>>>>>Video>>>>>>>>>>>>");
 
   return (
     <Link to="/video/test" style={{ textDecoration: "none" }}>
       <Container type={type}>
         <Image type={type} src={Card.imgURL} />
         <Details type={type}>
-          <ChannelImage
-            type={type}
-            src='https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg'
-          />
+          <ChannelImage type={type} src="./" />
           <Texts>
             <Title>{Card.title}</Title>
             <ChannelName>Code with MR</ChannelName>
