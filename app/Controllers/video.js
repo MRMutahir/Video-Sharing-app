@@ -52,16 +52,18 @@ async function deleteVideo(req, res) {
 
 // GET VIDEO
 async function getVideo(req, res) {
-  // console.log(Video.findById(req.params.id));
-  // res.json(Video.findById(req.params.id))
   try {
     const video = await Video.findById(req.params.id);
+    if (!video) {
+      // Video with the provided ID not found
+      return res.status(404).json({ error: "Video not found" });
+    }
     res.status(200).json(video);
-    log(video)
   } catch (error) {
     res.status(500).json(error);
   }
 }
+
 
 // Other Functions
 async function view(req, res) {
