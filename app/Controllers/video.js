@@ -55,7 +55,7 @@ async function getVideo(req, res) {
   try {
     const video = await Video.findById(req.params.id);
     if (!video) {
-      // Video with the provided ID not found
+      
       return res.status(404).json({ error: "Video not found" });
     }
     res.status(200).json(video);
@@ -78,7 +78,7 @@ async function view(req, res) {
 }
 async function random(req, res) {
   try {
-    const videos = await Video.aggregate([{ $sample: { size: 2 } }]);
+    const videos = await Video.aggregate([{ $sample: { size: 5 } }]);
     res.status(200).json(videos);
     // console.log("rodom videos");
   } catch (error) {
