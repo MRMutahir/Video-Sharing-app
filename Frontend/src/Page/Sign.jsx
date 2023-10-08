@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,14 +64,48 @@ const Link = styled.div`
 `;
 
 function Sign() {
+  const [username, setusername] = useState();
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState();
+  // useEffect(() => {
+
+  // }, []);
+  const handelSignin = async (e) => {
+    e.preventDefault();
+    console.log("SALAM handelSignin ");
+
+    try {
+      const res = await axios.post(`http://localhost:8800/api/auth/signin`, {
+        username,
+        password,
+      });
+      if(res.data){
+        console.log(res.data);
+
+      }else{
+        console.log(res.message);
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
         <SubTitle>to continue to LamaTube</SubTitle>
-        <Input placeholder="username" />
-        <Input type="password" placeholder="password" />
-        <Button>Sign in</Button>
+        <Input
+          placeholder="username"
+          onChange={(e) => setusername(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="password"
+          onChange={(e) => setpassword(e.target.value)}
+        />
+        <Button onClick={handelSignin}>Sign in</Button>
         <Title>or</Title>
         <Input placeholder="username" />
         <Input placeholder="email" />

@@ -8,7 +8,7 @@ import Home from "../src/Page/Home";
 import Sign from "../src/Page/Sign";
 import Video from "./Page/Video";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import Signin from "./Page/Signin";
+// import Signin from "./Page/Signin";
 // import Home from "@mui/icons-material/Home";
 
 const Container = styled.div`
