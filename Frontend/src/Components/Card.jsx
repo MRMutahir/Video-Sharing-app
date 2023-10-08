@@ -49,16 +49,16 @@ const Info = styled.div`
 `;
 function Card({ type, video }) {
   // console.log(Card._id == "64f46e504b234353ada20ede");
-  // console.log(video._id);
+  // console.log(video);
   const [channel, setChannel] = useState({});
   useEffect(() => {
     fetchChannel();
-  }, [video._id]);
+  }, [video.userId]);
 
   const fetchChannel = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8800/api/video/find/${video._id}`
+        `http://localhost:8800/api/user/${video.userId}`
         // `http://localhost:8800/api/video/find/65215f6c95da85b807ab67cc`
       );
       setChannel(res.data);
@@ -66,21 +66,21 @@ function Card({ type, video }) {
       console.log("err", error);
     }
   };
-  console.log(channel, ">>>>>>>>>>>>>>>>>>Channel>>>>>>>>>>>>>>>");
+  // console.log(channel, ">>>>>>>>>>>>>>>>>>Channel>>>>>>>>>>>>>>>");
   // console.log(Channel, ">>>>>>>>>>>>>>>>Card>>>>>>>>>>>>");
   // console.log(video, ">>>>>>>>>>>>>>>>Video>>>>>>>>>>>>");
 
   return (
     <Link to="/video/test" style={{ textDecoration: "none" }}>
       <Container type={type}>
-        <Image type={type} src={Card.imgURL} />
+        <Image type={type} src={video.imgURL} />
         <Details type={type}>
-          <ChannelImage type={type} src="./" />
+          <ChannelImage type={type} src={channel.image} />
           <Texts>
-            <Title>{Card.title}</Title>
-            <ChannelName>Code with MR</ChannelName>
+            <Title>{video.title}</Title>
+            <ChannelName>{channel.name}</ChannelName>
             <Info>
-              {Card.views} views {format(Card.createdAt)}
+              {video.views} views {format(Card.createdAt)}
             </Info>
           </Texts>
         </Details>
