@@ -58,19 +58,15 @@ function Card({ type, video }) {
   const fetchChannel = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8800/api/user/${video.userId}`
-        // `http://localhost:8800/api/video/find/65215f6c95da85b807ab67cc`
+        `http://localhost:8000/api/user/${video.userId}`
+
       );
       setChannel(res.data);
     } catch (error) {
       console.log("err", error);
     }
   };
-  // console.log(channel, ">>>>>>>>>>>>>>>>>>Channel>>>>>>>>>>>>>>>");
-  // console.log(Channel, ">>>>>>>>>>>>>>>>Card>>>>>>>>>>>>");
-  // console.log(video, ">>>>>>>>>>>>>>>>Video>>>>>>>>>>>>");
-
-  return (
+return (
     <Link to="/video/test" style={{ textDecoration: "none" }}>
       <Container type={type}>
         <Image type={type} src={video.imgURL} />

@@ -17,7 +17,7 @@ const Home = ({type}) => {
 
   const fetchVideo = async () => {
     try {
-      const res = await axios.get(`http://localhost:8800/api/video/${type}`);
+      const res = await axios.get(`http://localhost:8000/api/video/${type}`);
       setVideos(res.data);
       // console.log(res);
     } catch (error) {

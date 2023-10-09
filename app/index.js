@@ -9,8 +9,8 @@ import cookieParser from "cookie-parser";
 import  cors from "cors"
 
 let app = express();
+let port = 8000;
 app.use(cors())
-let port = 8800;
 dotenv.config();
 const connect = () => {
   mongoose
@@ -23,8 +23,8 @@ const connect = () => {
     });
 };
 
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userrouter);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
 const Container = styled.div`
@@ -18,7 +18,6 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.soft};
   padding: 20px 50px;
   gap: 10px;
-  /* height: 30vh; */
 `;
 
 const Title = styled.h1`
@@ -65,30 +64,33 @@ const Link = styled.div`
 
 function Sign() {
   const [username, setusername] = useState("");
-  // const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  // useEffect(() => {
+  // const handelSignin = async (e) => {
+  //   // console.log("SALAM handelSignin ");
+  //   // console.log(username);
+  //   // console.log(password);
 
-  // }, []);
-  const handelSignin = async (e) => {
-    e.preventDefault();
-    console.log("SALAM handelSignin ");
-    // const url = `http://localhost:8800/`;
-
+  // };
+  // const username = useRef();
+  // const password = useRef();
+  async function handelSignin(e) {
     try {
-      const res = await axios.post(`http://localhost:8800/api/auth/signin`, {
-        username,
-        password,
-      });
-      if (res.data) {
-        console.log(res.data);
+      const response = await axios.post(
+        `http://localhost:8000/api/auth/signin`,{username,password}
+        // //  { username: username.current.value, password: password.current.value }
+        // { username: `video4`, password: `12345678` }
+      );
+      if (response.data) {
+        console.log(response.data);
       } else {
-        console.log(res.message);
+        // console.log(res.message);
+        console.log(response.data);
       }
     } catch (error) {
       console.log(error);
+      // console.log(res.data);
     }
-  };
+  }
 
   return (
     <Container>
@@ -98,11 +100,15 @@ function Sign() {
         <Input
           placeholder="username"
           onChange={(e) => setusername(e.target.value)}
+          // value={username}
+          // ref={username}
         />
         <Input
           type="password"
           placeholder="password"
           onChange={(e) => setpassword(e.target.value)}
+          // value={password}
+          // ref={password}
         />
         <Button onClick={handelSignin}>Sign in</Button>
         <Title>or</Title>

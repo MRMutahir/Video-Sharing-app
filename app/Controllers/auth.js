@@ -31,8 +31,6 @@ async function signin(req, res) {
     res.cookie("access_token", token, {
       httpOnly: true,
     });
-    // Return user data without the password
-    // res.status(200).json({ user: { _id: user._id, name: user.name } });
     const { password, ...other } = user._doc;
     res.status(200).json(other);
   }else{
