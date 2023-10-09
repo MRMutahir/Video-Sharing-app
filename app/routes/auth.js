@@ -1,13 +1,13 @@
 import express from "express";
-import { signup,signin } from "../Controllers/auth.js";
+import { signup, signin } from "../Controllers/auth.js";
 const authRoutes = express.Router();
 
 //CREATE A USER
 authRoutes.post("/signup", signup);
-authRoutes.post("/signin", signin);
+// authRoutes.post("/signin", signin);
 
 //SIGN IN
-// authRoutes.post("/signin", signin);
+authRoutes.post("/signin", signin);
 
 // //GOOGLE AUTH
 // authRoutes.post("/google", googleAuth);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 const Container = styled.div`
@@ -64,27 +64,26 @@ const Link = styled.div`
 `;
 
 function Sign() {
-  const [username, setusername] = useState();
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState();
+  const [username, setusername] = useState("");
+  // const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
   // useEffect(() => {
 
   // }, []);
   const handelSignin = async (e) => {
     e.preventDefault();
     console.log("SALAM handelSignin ");
+    // const url = `http://localhost:8800/`;
 
     try {
       const res = await axios.post(`http://localhost:8800/api/auth/signin`, {
         username,
         password,
       });
-      if(res.data){
+      if (res.data) {
         console.log(res.data);
-
-      }else{
+      } else {
         console.log(res.message);
-
       }
     } catch (error) {
       console.log(error);
@@ -125,3 +124,7 @@ function Sign() {
 }
 
 export default Sign;
+
+
+
+
