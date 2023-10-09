@@ -33,7 +33,9 @@ const Input = styled.input`
   padding: 10px;
   width: 100%;
   background-color: transparent;
-  outline: none;
+  outline: inherit;
+  
+  color: ${({ theme }) => theme.textSoft};
 `;
 const Button = styled.button`
   border: none;
@@ -65,34 +67,18 @@ const Link = styled.div`
 function Sign() {
   const [name, setusername] = useState("");
   const [password, setpassword] = useState("");
-  // const handelSignin = async (e) => {
-  //   // console.log("SALAM handelSignin ");
-  //   // console.log(username);
-  //   // console.log(password);
 
-  // };
-  // const username = useRef();
-  // const password = useRef();
   async function handelSignin(e) {
-    // let obj =  {
-    //   name,password
-    // }
-    // console.log(obj);
+    e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/auth/signin`,{name,password}
-        // //  { username: username.current.value, password: password.current.value }
-        // { username: `video4`, password: `12345678` }
-      )
-      if (response.data) {
-        console.log(response.data);
-      } else {
-        // console.log(res.message);
-        console.log(response.data);
-      }
+        `http://localhost:8000/api/auth/signin`,
+        { name, password }
+      );
+      console.log(response.data);
     } catch (error) {
-      console.log(error);
-      // console.log(res.data);
+      if (error) console.log("user not found ");
+      // console.log(error);
     }
   }
 
@@ -116,10 +102,10 @@ function Sign() {
         />
         <Button onClick={handelSignin}>Sign in</Button>
         <Title>or</Title>
-        {/* <Input placeholder="username" />
+        <Input placeholder="username" />
         <Input placeholder="email" />
         <Input type="password" placeholder="password" />
-        <Button>Sign up</Button> */}
+        <Button>Sign up</Button>
       </Wrapper>
       <More>
         English (USA)
