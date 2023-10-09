@@ -63,7 +63,7 @@ const Link = styled.div`
 `;
 
 function Sign() {
-  const [username, setusername] = useState("");
+  const [name, setusername] = useState("");
   const [password, setpassword] = useState("");
   // const handelSignin = async (e) => {
   //   // console.log("SALAM handelSignin ");
@@ -74,12 +74,16 @@ function Sign() {
   // const username = useRef();
   // const password = useRef();
   async function handelSignin(e) {
+    // let obj =  {
+    //   name,password
+    // }
+    // console.log(obj);
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/auth/signin`,{username,password}
+        `http://localhost:8000/api/auth/signin`,{name,password}
         // //  { username: username.current.value, password: password.current.value }
         // { username: `video4`, password: `12345678` }
-      );
+      )
       if (response.data) {
         console.log(response.data);
       } else {
@@ -112,10 +116,10 @@ function Sign() {
         />
         <Button onClick={handelSignin}>Sign in</Button>
         <Title>or</Title>
-        <Input placeholder="username" />
+        {/* <Input placeholder="username" />
         <Input placeholder="email" />
         <Input type="password" placeholder="password" />
-        <Button>Sign up</Button>
+        <Button>Sign up</Button> */}
       </Wrapper>
       <More>
         English (USA)
