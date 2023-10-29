@@ -73,7 +73,7 @@ function Sign() {
 
   async function handelSignin(e) {
     e.preventDefault();
-    dispatch(LoginStart);
+    dispatch(LoginStart());
     try {
       const response = await axios.post(
         `http://localhost:8000/api/auth/signin`,
@@ -82,7 +82,7 @@ function Sign() {
       dispatch(LoginSucces(response.data));
       console.log(response.data);
     } catch (error) {
-      LoginFailure();
+      dispatch(LoginFailure());
       if (error) console.log("user not found ");
       // console.log(error);
     }
