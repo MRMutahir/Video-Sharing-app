@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
+import { UseSelector, useSelector } from "react-redux";
 const Container = styled.div`
   position: sticky;
   background: ${({ theme }) => theme.bgLighter};
@@ -49,6 +50,7 @@ const Button = styled.button`
 `;
 
 function Navbar() {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <Container>
       <Warpper>
@@ -56,12 +58,16 @@ function Navbar() {
           <Input type="text" placeholder="Search" />
           <SearchIcon />
         </Search>
-        <Link to="signin" style={{ textDecoration: "none" }}>
-          <Button>
-            {" "}
-            <AccountCircleOutlinedIcon /> Sign in
-          </Button>
-        </Link>
+        {currentUser ? (
+          "user"
+        ) : (
+          <Link to="signin" style={{ textDecoration: "none" }}>
+            <Button>
+              {" "}
+              <AccountCircleOutlinedIcon /> Sign in
+            </Button>
+          </Link>
+        )}
       </Warpper>
     </Container>
   );

@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { LoginFailure, LoginStart, LoginSucces } from "../Redux/userSlice";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,7 +36,7 @@ const Input = styled.input`
   width: 100%;
   background-color: transparent;
   outline: inherit;
-  
+
   color: ${({ theme }) => theme.textSoft};
 `;
 const Button = styled.button`
@@ -67,16 +69,20 @@ const Link = styled.div`
 function Sign() {
   const [name, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const dispatch = useDispatch();
 
   async function handelSignin(e) {
     e.preventDefault();
+    dispatch(LoginStart);
     try {
       const response = await axios.post(
         `http://localhost:8000/api/auth/signin`,
         { name, password }
       );
+      dispatch(LoginSucces(response.data));
       console.log(response.data);
     } catch (error) {
+      LoginFailure();
       if (error) console.log("user not found ");
       // console.log(error);
     }
