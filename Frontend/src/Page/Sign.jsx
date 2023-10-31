@@ -80,7 +80,7 @@ function Sign() {
         { name, password }
       );
       dispatch(LoginSucces(response.data));
-      console.log(response.data);
+      console.log(response);
     } catch (error) {
       dispatch(LoginFailure());
       if (error) console.log("user not found ");

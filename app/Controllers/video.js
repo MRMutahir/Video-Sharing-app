@@ -55,7 +55,6 @@ async function getVideo(req, res) {
   try {
     const video = await Video.findById(req.params.id);
     if (!video) {
-      
       return res.status(404).json({ error: "Video not found" });
     }
     res.status(200).json(video);
@@ -63,7 +62,6 @@ async function getVideo(req, res) {
     res.status(500).json(error);
   }
 }
-
 
 // Other Functions
 async function view(req, res) {
@@ -98,9 +96,6 @@ async function subscribes(req, res) {
   try {
     const user = await User.findById(req.user.id);
     const subscribedChannels = user.subscribedUsers;
-    console.log(user);
-    console.log(subscribedChannels);
-
     const list = await Promise.all(
       subscribedChannels.map(async (channelId) => {
         return await Video.find({ userId: channelId });
@@ -109,7 +104,7 @@ async function subscribes(req, res) {
     // console.log(list);
     // Extract the data from the response and then apply .flat() and .sort()
     const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
-    // console.log(responseData);
+    console.log(responseData);
 
     // Send the sorted list as the response
     res.status(200).json(responseData);
@@ -151,5 +146,5 @@ export {
   random,
   bytags,
   search,
-  trend
+  trend,
 };

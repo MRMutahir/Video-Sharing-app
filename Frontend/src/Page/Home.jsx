@@ -9,12 +9,12 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const Home = ({type}) => {
+const Home = ({ type }) => {
   const [videos, setVideos] = useState([]);
   useEffect(() => {
     fetchVideo();
   }, [type]);
-
+   console.log(type);
   const fetchVideo = async () => {
     try {
       const res = await axios.get(`http://localhost:8000/api/video/${type}`);

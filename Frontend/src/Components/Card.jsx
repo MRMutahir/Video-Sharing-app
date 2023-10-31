@@ -59,7 +59,6 @@ function Card({ type, video }) {
     try {
       const res = await axios.get(
         `http://localhost:8000/api/user/${video.userId}`
-
       );
       setChannel(res.data);
     } catch (error) {
