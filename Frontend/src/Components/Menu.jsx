@@ -97,12 +97,12 @@ function Menu({ darkmode, setdarkmode }) {
           </Item>
         </Link>
         <Link
-          to="subscription"
+          to="subscribes"
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <Item>
             <SubscriptionsOutlinedIcon />
-            Subscriptions
+            subscribes
           </Item>
         </Link>
         <Hr />

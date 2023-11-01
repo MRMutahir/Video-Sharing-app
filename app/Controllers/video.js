@@ -76,7 +76,7 @@ async function view(req, res) {
 }
 async function random(req, res) {
   try {
-    const videos = await Video.aggregate([{ $sample: { size: 5 } }]);
+    const videos = await Video.aggregate([{ $sample: { size: 3} }]);
     res.status(200).json(videos);
     // console.log("rodom videos");
   } catch (error) {

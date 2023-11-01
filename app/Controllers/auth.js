@@ -1,4 +1,3 @@
-
 import { User } from "../model/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -33,9 +32,24 @@ async function signin(req, res) {
     });
     const { password, ...other } = user._doc;
     res.status(200).json(other);
-  }else{
-    res.status(500).json("User not found check your user name or password")
+  } else {
+    res.status(500).json("User not found check your user name or password");
   }
 }
+async function googleAuth(req, res) {
+  try {
+    const user = User.findOne({ email: req.body.email });
+    if (user) {
+      const googleToken = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, {
+        expiresIn: "1h",
+      });
+      res.cookie("access_token", token, {
+        httpOnly: true,
+      });
+      const { password, ...other } = user._doc;
+      res.status(200).json(other);
+    }
+  } catch (error) {}
+}
 
-export { signup, signin };
+export { signup, signin, googleAuth };

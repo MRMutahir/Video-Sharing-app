@@ -16,6 +16,7 @@
     "@mui/material": "^5.14.10",
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.5.1",
+    "firebase": "^10.5.2",
     "material-icons": "^1.13.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

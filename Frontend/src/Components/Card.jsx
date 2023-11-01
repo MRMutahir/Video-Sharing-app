@@ -70,10 +70,10 @@ return (
       <Container type={type}>
         <Image type={type} src={video.imgURL} />
         <Details type={type}>
-          <ChannelImage type={type} src={channel.image} />
+          <ChannelImage type={type} src={channel?.image} />
           <Texts>
             <Title>{video.title}</Title>
-            <ChannelName>{channel.name}</ChannelName>
+            <ChannelName>{channel?.name}</ChannelName>
             <Info>
               {video.views} views {format(Card.createdAt)}
             </Info>
