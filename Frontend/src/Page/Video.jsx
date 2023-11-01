@@ -107,8 +107,8 @@ function Video() {
   const { currentVideo } = useSelector((state) => state.video);
   const dispatch = useDispatch();
   // const [video, setvideo] = useState({});
-  const [channel, setchannel] = useState({});
   const path = useLocation().pathname.split("/")[2];
+  const [channel, setchannel] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -129,11 +129,11 @@ function Video() {
       }
       fetchData();
     };
-  }, [path]);
-  // console.log(path);
+  }, [path,dispatch]);
+  // console.log(path);                                                             
   return (
     <Container>
-      {/* <Content>
+      <Content>
         <VideoWrapper>
           <iframe
             width="853"
@@ -182,7 +182,7 @@ function Video() {
         </Channel>
         <HR />
         <Comments />
-      </Content> */}
+      </Content>
       {/* <Recommendation>
         <Card type="sm" />
         <Card type="sm" />
