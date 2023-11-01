@@ -9,6 +9,7 @@ import Card from "../Components/Card";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { format } from "timeago.js";
 const Container = styled.div`
   display: flex;
   gap: 24px;
@@ -120,6 +121,8 @@ function Video() {
         // setvideo(videoRes.data);
         setchannel(channelRes.data);
         dispatch(FetchSucces(videoRes.data));
+        console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>");
+        console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>");
       } catch (error) {
         console.log(error);
         console.log(error.message);
@@ -127,10 +130,10 @@ function Video() {
       fetchData();
     };
   }, [path]);
-  console.log(path);
+  // console.log(path);
   return (
     <Container>
-      <Content>
+      {/* <Content>
         <VideoWrapper>
           <iframe
             width="853"
@@ -142,14 +145,16 @@ function Video() {
             allowfullscreen
           ></iframe>
         </VideoWrapper>
-        <Titte>Test Video</Titte>
+        <Titte>{currentVideo.title}</Titte>
         <Details>
           {" "}
-          <Info>7,948,154 views • Jun 22, 2022</Info>
+          <Info>
+            {currentVideo.views} views • {format(currentVideo.createdAt)}
+          </Info>
           <Buttons>
             <Buttons>
               <Button>
-                <ThumbUpOutlinedIcon /> 123
+                <ThumbUpOutlinedIcon /> {currentVideo?.likes.length}
               </Button>
               <Button>
                 <ThumbDownOffAltOutlinedIcon /> Dislike
@@ -166,22 +171,18 @@ function Video() {
         <HR />
         <Channel>
           <Channelinfo>
-            <Image src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo" />
+            <Image src={channel.imgUrl} />
             <ChannelDetails>
-              <ChannelName>code with MR</ChannelName>
-              <ChannelCounter>200k subscribe</ChannelCounter>
-              <Discription>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus
-                illo ipsum natus repudiandae? Recusandae, odio distinctio
-                reprehenderit tempora libero corporis.
-              </Discription>
+              <ChannelName>{channel.name}</ChannelName>
+              <ChannelCounter>{channel.subscribers}</ChannelCounter>
+              <Discription>{currentVideo.description}</Discription>
             </ChannelDetails>
           </Channelinfo>
           <Subscribe>Subscribe</Subscribe>
         </Channel>
         <HR />
         <Comments />
-      </Content>
+      </Content> */}
       {/* <Recommendation>
         <Card type="sm" />
         <Card type="sm" />
