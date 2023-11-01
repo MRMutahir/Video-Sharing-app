@@ -65,8 +65,8 @@ function Card({ type, video }) {
       console.log("err", error);
     }
   };
-return (
-    <Link to="/video/test" style={{ textDecoration: "none" }}>
+  return (
+    <Link to={`/video/${video._id}`} style={{ textDecoration: "none" }}>
       <Container type={type}>
         <Image type={type} src={video.imgURL} />
         <Details type={type}>

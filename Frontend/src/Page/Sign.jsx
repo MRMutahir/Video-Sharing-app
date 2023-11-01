@@ -95,7 +95,7 @@ function Sign() {
       const result = await signInWithPopup(auth, provider);
       console.log(result, ">>>>>>>>>>>>>>>>>>>>>>>>>>result");
       axios
-        .post("/auth/google/", {
+        .post("http://localhost:8000/api/auth/google/", {
           name: result.user.displayName,
           email: result.user.email,
           image: result.user.photoURL,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
@@ -6,6 +6,9 @@ import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import Comments from "../Components/Comments";
 import Card from "../Components/Card";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 const Container = styled.div`
   display: flex;
   gap: 24px;
@@ -99,20 +102,36 @@ const Image = styled.img`
 `;
 
 function Video() {
+  const { currentUser } = useSelector((state) => state.user);
+  const { currentVideo } = useSelector((state) => state.video);
+  const dispatch = useDispatch();
+  // const [video, setvideo] = useState({});
+  const [channel, setchannel] = useState({});
+  const path = useLocation().pathname.split("/")[2];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const videoRes = await axios.get(
+          `http://localhost:8000/api/video/find/${path}`
+        );
+        const channelRes = await axios.get(
+          `http://localhost:8000/api/user/${videoRes.userId}`
+        );
+        // setvideo(videoRes.data);
+        setchannel(channelRes.data);
+        dispatch(FetchSucces(videoRes.data));
+      } catch (error) {
+        console.log(error);
+        console.log(error.message);
+      }
+      fetchData();
+    };
+  }, [path]);
+  console.log(path);
   return (
     <Container>
       <Content>
         <VideoWrapper>
-          {/* <iframe
-            width="100%"
-            height="420"
-            src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe> */}
-
           <iframe
             width="853"
             height="480"
@@ -163,7 +182,7 @@ function Video() {
         <HR />
         <Comments />
       </Content>
-      <Recommendation>
+      {/* <Recommendation>
         <Card type="sm" />
         <Card type="sm" />
         <Card type="sm" />
@@ -178,7 +197,7 @@ function Video() {
         <Card type="sm" />
         <Card type="sm" />
         <Card type="sm" />
-      </Recommendation>
+      </Recommendation> */}
     </Container>
   );
 }

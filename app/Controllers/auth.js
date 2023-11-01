@@ -38,18 +38,32 @@ async function signin(req, res) {
 }
 async function googleAuth(req, res) {
   try {
-    const user = User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email });
     if (user) {
-      const googleToken = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, {
         expiresIn: "1h",
       });
       res.cookie("access_token", token, {
         httpOnly: true,
       });
-      const { password, ...other } = user._doc;
-      res.status(200).json(other);
+      res.status(200).json(user._doc);
+    } else {
+      const newUser = new User({
+        ...req.body,
+        fromGoogle: true,
+      });
+      const saveUser = await newUser.save();
+      const token = jwt.sign({ id: saveUser._id }, process.env.JWT_TOKEN, {
+        expiresIn: "1h",
+      });
+      res.cookie("access_token", token, {
+        httpOnly: true,
+      });
+      res.status(200).json(saveUser._doc);
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
 export { signup, signin, googleAuth };
