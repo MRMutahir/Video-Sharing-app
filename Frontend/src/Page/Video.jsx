@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { format } from "timeago.js";
-import { FetchSucces } from "../Redux/VideoSlice.js";
+import { Dislike, FetchSucces, Like } from "../Redux/VideoSlice.js";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 const Container = styled.div`
@@ -140,13 +140,19 @@ function Video() {
   const handellikes = async () => {
     // console.log("handellikes>>>>>>>>>>>>>>>>");
     await axios.put(`http://localhost:8000/api/user/like/${currentVideo._id}`);
+    console.log(currentVideo._id);
+    dispatch(Like(currentUser._id));
   };
   const handeldislikes = async () => {
     // console.log("handeldislikes>>>>>>>>>>>>>>>>");
     await axios.put(
       `http://localhost:8000/api/user/dislike/${currentVideo._id}`
     );
+    dispatch(Dislike(currentUser._id));
   };
+  console.log(currentUser._id, "currentUser>>>>>>>>>>");
+  console.log(currentVideo._id, "currentUser>>>>>>>>>>");
+  console.log(currentVideo._id == currentUser._id);
   return (
     <Container>
       <Content>
