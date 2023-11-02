@@ -80,8 +80,8 @@ async function Unsubscribe(req, res, next) {
   }
 }
 
-async function like() {
-  console.log("SALAM");
+async function like(req,res) {
+  // console.log("SALAM");
   const userId = req.user.id;
   const videoId = req.params.videoId;
   try {
@@ -94,7 +94,7 @@ async function like() {
     res.status(404).json(error);
   }
 }
-async function dislike() {
+async function dislike(req,res) {
   // console.log("SALAM");
   const userId = req.user.id;
   const videoId = req.params.videoId;

@@ -10,6 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { format } from "timeago.js";
+import { FetchSucces } from "../Redux/VideoSlice.js";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 const Container = styled.div`
   display: flex;
   gap: 24px;
@@ -111,26 +114,39 @@ function Video() {
   const [channel, setchannel] = useState({});
   useEffect(() => {
     const fetchData = async () => {
+      console.log("Use effect chl raha hen ");
       try {
         const videoRes = await axios.get(
           `http://localhost:8000/api/video/find/${path}`
         );
         const channelRes = await axios.get(
-          `http://localhost:8000/api/user/${videoRes.userId}`
+          `http://localhost:8000/api/user/${videoRes.data.userId}`
         );
         // setvideo(videoRes.data);
         setchannel(channelRes.data);
         dispatch(FetchSucces(videoRes.data));
-        console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>");
-        console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>");
+        // console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>");
+        console.log(currentVideo, "currentVideo>>>>>>>>>>>>>>>>>>>>>>>>");
+
+        // console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>");
       } catch (error) {
         console.log(error);
         console.log(error.message);
       }
-      fetchData();
     };
-  }, [path,dispatch]);
-  // console.log(path);                                                             
+    fetchData();
+  }, [path, dispatch]);
+  // console.log(currentVideo);
+  const handellikes = async () => {
+    // console.log("handellikes>>>>>>>>>>>>>>>>");
+    await axios.put(`http://localhost:8000/api/user/like/${currentVideo._id}`);
+  };
+  const handeldislikes = async () => {
+    // console.log("handeldislikes>>>>>>>>>>>>>>>>");
+    await axios.put(
+      `http://localhost:8000/api/user/dislike/${currentVideo._id}`
+    );
+  };
   return (
     <Container>
       <Content>
@@ -153,11 +169,21 @@ function Video() {
           </Info>
           <Buttons>
             <Buttons>
-              <Button>
-                <ThumbUpOutlinedIcon /> {currentVideo?.likes.length}
+              <Button onClick={handellikes}>
+                {currentVideo.likes?.includes(currentUser._id) ? (
+                  <ThumbUpOffAltIcon />
+                ) : (
+                  <ThumbUpOutlinedIcon />
+                )}
+                {currentVideo?.likes.length}
               </Button>
-              <Button>
-                <ThumbDownOffAltOutlinedIcon /> Dislike
+              <Button onClick={handeldislikes}>
+                {currentVideo.dislikes?.includes(currentUser._id) ? (
+                  <ThumbDownOffAltIcon />
+                ) : (
+                  <ThumbDownOffAltOutlinedIcon />
+                )}{" "}
+                Dislike
               </Button>
               <Button>
                 <ReplyOutlinedIcon /> Share
@@ -171,10 +197,10 @@ function Video() {
         <HR />
         <Channel>
           <Channelinfo>
-            <Image src={channel.imgUrl} />
+            <Image src={channel?.imgUrl} />
             <ChannelDetails>
-              <ChannelName>{channel.name}</ChannelName>
-              <ChannelCounter>{channel.subscribers}</ChannelCounter>
+              <ChannelName>{channel?.name}</ChannelName>
+              <ChannelCounter>{channel?.subscribers}</ChannelCounter>
               <Discription>{currentVideo.description}</Discription>
             </ChannelDetails>
           </Channelinfo>

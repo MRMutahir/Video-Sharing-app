@@ -4,9 +4,6 @@ const initialState = {
   loading: false,
   error: false,
 };
-export const VideoSlice = createSlice({
-  name: "video",
-});
 
 export const videoSlice = createSlice({
   name: "video",
@@ -14,10 +11,10 @@ export const videoSlice = createSlice({
   reducers: {
     FetchStart: (state) => {
       state.loading = true;
-    },
+    },  
     FetchSucces: (state, action) => {
       state.loading = false;
-      state.currentUser = action.payload;
+      state.currentVideo = action.payload;
     },
     FetchFailure: (state, action) => {
       state.loading = false;
@@ -26,6 +23,5 @@ export const videoSlice = createSlice({
   },
 });
 
-export const { LoginStart, LoginSucces, LoginFailure, Logout } =
-  videoSlice.actions;
+export const { FetchStart, FetchSucces, FetchFailure } = videoSlice.actions;
 export default videoSlice.reducer;
