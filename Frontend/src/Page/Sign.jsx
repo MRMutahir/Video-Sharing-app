@@ -87,7 +87,7 @@ function Sign() {
       myDate.setDate(myDate.getDate() + 1);
       document.cookie = `access_token=${authToken};expires=${myDate};path=/`;
       console.log(response);
-      console.log(response.data.token);
+      // console.log(response.data.token);
     } catch (error) {
       dispatch(LoginFailure());
       if (error) console.log("user not found ");
@@ -98,7 +98,7 @@ function Sign() {
     dispatch(LoginStart());
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log(result, ">>>>>>>>>>>>>>>>>>>>>>>>>>result");
+      // console.log(result, ">>>>>>>>>>>>>>>>>>>>>>>>>>result");
       axios
         .post("http://localhost:8000/api/auth/google/", {
           name: result.user.displayName,

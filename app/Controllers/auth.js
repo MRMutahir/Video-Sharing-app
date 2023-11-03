@@ -31,7 +31,7 @@ async function signin(req, res) {
       httpOnly: true,
     });
     const { password, ...other } = user._doc;
-    res.status(200).json({ other });
+    res.status(200).json({ other, token });
     // console.log(token);
   } else {
     res.status(500).json("User not found check your user name or password");

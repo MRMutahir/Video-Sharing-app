@@ -109,7 +109,6 @@ function Video() {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
   const dispatch = useDispatch();
-  // const [video, setvideo] = useState({});
   const path = useLocation().pathname.split("/")[2];
   const [channel, setchannel] = useState({});
   useEffect(() => {
@@ -122,13 +121,9 @@ function Video() {
         const channelRes = await axios.get(
           `http://localhost:8000/api/user/${videoRes.data.userId}`
         );
-        // setvideo(videoRes.data);
         setchannel(channelRes.data);
         dispatch(FetchSucces(videoRes.data));
-        // console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>");
         console.log(currentVideo, "currentVideo>>>>>>>>>>>>>>>>>>>>>>>>");
-
-        // console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>");
       } catch (error) {
         console.log(error);
         console.log(error.message);
@@ -136,23 +131,16 @@ function Video() {
     };
     fetchData();
   }, [path, dispatch]);
-  // console.log(currentVideo);
   const handellikes = async () => {
-    // console.log("handellikes>>>>>>>>>>>>>>>>");
     await axios.put(`http://localhost:8000/api/user/like/${currentVideo._id}`);
     console.log(currentVideo._id);
-    dispatch(Like(currentUser._id));
+    dispatch(Like(currentVideo._id));
   };
   const handeldislikes = async () => {
-    // console.log("handeldislikes>>>>>>>>>>>>>>>>");
-    await axios.put(
-      `http://localhost:8000/api/user/dislike/${currentVideo._id}`
-    );
-    dispatch(Dislike(currentUser._id));
+    await axios.put(`http://localhost:8000/api/user/dislike/${currentVideo._id}`);
+    dispatch(Dislike(currentVideo._id));
   };
-  console.log(currentUser._id, "currentUser>>>>>>>>>>");
-  console.log(currentVideo._id, "currentUser>>>>>>>>>>");
-  console.log(currentVideo._id == currentUser._id);
+  
   return (
     <Container>
       <Content>
@@ -167,16 +155,16 @@ function Video() {
             allowfullscreen
           ></iframe>
         </VideoWrapper>
-        <Titte>{currentVideo.title}</Titte>
+        <Titte>{currentVideo?.title}</Titte>
         <Details>
           {" "}
           <Info>
-            {currentVideo.views} views • {format(currentVideo.createdAt)}
+            {currentVideo?.views} views • {format(currentVideo?.createdAt)}
           </Info>
           <Buttons>
             <Buttons>
               <Button onClick={handellikes}>
-                {currentVideo.likes?.includes(currentUser._id) ? (
+                {currentVideo?.likes?.includes(currentUser._id) ? (
                   <ThumbUpOffAltIcon />
                 ) : (
                   <ThumbUpOutlinedIcon />
@@ -184,7 +172,7 @@ function Video() {
                 {currentVideo?.likes.length}
               </Button>
               <Button onClick={handeldislikes}>
-                {currentVideo.dislikes?.includes(currentUser._id) ? (
+                {currentVideo?.dislikes?.includes(currentUser._id) ? (
                   <ThumbDownOffAltIcon />
                 ) : (
                   <ThumbDownOffAltOutlinedIcon />
@@ -207,7 +195,7 @@ function Video() {
             <ChannelDetails>
               <ChannelName>{channel?.name}</ChannelName>
               <ChannelCounter>{channel?.subscribers}</ChannelCounter>
-              <Discription>{currentVideo.description}</Discription>
+              <Discription>{currentVideo?.description}</Discription>
             </ChannelDetails>
           </Channelinfo>
           <Subscribe>Subscribe</Subscribe>
