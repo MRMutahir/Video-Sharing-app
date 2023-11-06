@@ -39,11 +39,11 @@ async function deleted(req, res) {
 }
 
 // GET USER
-async function getuser(req, res, next) {
+async function getuser(req, res) {
   // console.log(req.params.id);
   try {
     const user = await User.findById(req.params.id);
-    // console.log(user);
+    console.log(user);
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json(error);

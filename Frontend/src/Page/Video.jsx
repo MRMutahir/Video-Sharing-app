@@ -119,11 +119,16 @@ function Video() {
           `http://localhost:8000/api/video/find/${path}`
         );
         const channelRes = await axios.get(
-          `http://localhost:8000/api/user/${videoRes.data.userId}`
+          `http://localhost:8000/api/user/find/${videoRes.data.userId}`
         );
         setchannel(channelRes.data);
         dispatch(FetchSucces(videoRes.data));
-        console.log(currentVideo, "currentVideo>>>>>>>>>>>>>>>>>>>>>>>>");
+        // console.log(currentVideo, "currentVideo>>>>>>>>>>>>>>>>>>>>>>>>");
+        // console.log(currentVideo, ">>>>>>>>>>>>>>>>>>>>>>>>currentVideo");
+        // console.log(currentUser, ">>>>>>>>>>>>>>>>>>>>>>>>>currentUser");
+        console.log(videoRes.data.userId, ">>>>>>>>>>>>>>>>>>>>videoRes.data.userId ");
+        console.log(videoRes, ">>>>>>>>>>>>>>>>>>>>videoRes");
+        console.log(channelRes, ">>>>>>>>>>>>>>>>>>channelRes");
       } catch (error) {
         console.log(error);
         console.log(error.message);
@@ -133,14 +138,15 @@ function Video() {
   }, [path, dispatch]);
   const handellikes = async () => {
     await axios.put(`http://localhost:8000/api/user/like/${currentVideo._id}`);
-    console.log(currentVideo._id);
-    dispatch(Like(currentVideo._id));
+    dispatch(Like(currentUser._id));
   };
   const handeldislikes = async () => {
-    await axios.put(`http://localhost:8000/api/user/dislike/${currentVideo._id}`);
-    dispatch(Dislike(currentVideo._id));
+    await axios.put(
+      `http://localhost:8000/api/user/dislike/${currentVideo._id}`
+    );
+    dispatch(Dislike(currentUser._id));
   };
-  
+
   return (
     <Container>
       <Content>
