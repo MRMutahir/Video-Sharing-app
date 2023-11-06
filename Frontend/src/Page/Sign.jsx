@@ -82,11 +82,11 @@ function Sign() {
         { name, password }
       );
       dispatch(LoginSucces(response.data));
-      // const authToken = response.data.token;
-      // let myDate = new Date();
-      // myDate.setDate(myDate.getDate() + 1);
-      // document.cookie = `access_token=${authToken};expires=${myDate};path=/`;
-      // console.log(response);
+      const authToken = response.data.token;
+      let myDate = new Date();
+      myDate.setDate(myDate.getDate() + 1);
+      document.cookie = `access_token=${authToken};expires=${myDate};path=/`;
+       // console.log(response);
       // console.log(response.data.token);
     } catch (error) {
       dispatch(LoginFailure());

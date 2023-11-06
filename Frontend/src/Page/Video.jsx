@@ -116,10 +116,10 @@ function Video() {
       console.log("Use effect chl raha hen ");
       try {
         const videoRes = await axios.get(
-          `http://localhost:8000/api/video/find/${path}`
+          `/video/find/${path}`
         );
         const channelRes = await axios.get(
-          `http://localhost:8000/api/user/find/${videoRes.data.userId}`
+          `/user/find/${videoRes.data.userId}`
         );
         setchannel(channelRes.data);
         dispatch(FetchSucces(videoRes.data));
@@ -137,12 +137,12 @@ function Video() {
     fetchData();
   }, [path, dispatch]);
   const handellikes = async () => {
-    await axios.put(`http://localhost:8000/api/user/like/${currentVideo._id}`);
+    await axios.put(`/user/like/${currentVideo._id}`);
     dispatch(Like(currentUser._id));
   };
   const handeldislikes = async () => {
     await axios.put(
-      `http://localhost:8000/api/user/dislike/${currentVideo._id}`
+      `/user/dislike/${currentVideo._id}`
     );
     dispatch(Dislike(currentUser._id));
   };
