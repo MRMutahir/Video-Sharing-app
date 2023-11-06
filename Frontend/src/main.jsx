@@ -12,7 +12,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <React.StrictMode>
       <Provider store={store}>
-        <PersistGate loaing={null} persistor={persistor}>
+        {/* Mistake */}
+        <PersistGate loading={null} persistor={persistor}> 
           <App />
         </PersistGate>
       </Provider>
