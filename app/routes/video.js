@@ -6,7 +6,10 @@ import {
   getVideo,
   view,
   subscribes,
-  random, bytags, search,trend
+  random,
+  bytags,
+  search,
+  trend,
 } from "../Controllers/video.js";
 import { verifytoken } from "../verifytoken.js";
 const videorouter = express.Router();

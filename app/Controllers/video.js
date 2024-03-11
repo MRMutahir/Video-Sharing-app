@@ -76,7 +76,7 @@ async function view(req, res) {
 }
 async function random(req, res) {
   try {
-    const videos = await Video.aggregate([{ $sample: { size: 3} }]);
+    const videos = await Video.aggregate([{ $sample: { size: 2 } }]);
     res.status(200).json(videos);
     // console.log("rodom videos");
   } catch (error) {
@@ -122,10 +122,9 @@ async function bytags(req, res) {
     res.status(500).json(error);
   }
 }
-
 async function search(req, res) {
   const query = req.query.q;
-  console.log(query);
+  // console.log(query);
   try {
     const videos = await Video.find({
       title: { $regex: query, $options: "i" },

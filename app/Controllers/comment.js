@@ -1,10 +1,11 @@
 import { Comment } from "../model/comment.js";
 import { Video } from "../model/Video.js";
 async function addcomment(req, res) {
+  // console.log(req.params.id);
   const newComment = new Comment({ ...req.body, userId: req.user.id });
   try {
     const saveComment = await newComment.save();
-    res.status(200).json(newComment);
+    res.status(200).json(saveComment);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -24,7 +25,7 @@ async function deletecomment(req, res) {
   }
 }
 async function getcomment(req, res) {
-  // console.log(req.params.id);
+  console.log(req.params.id);
   try {
     const comments = await Comment.find({ videoId: req.params.id });
     // console.log(comments);
@@ -34,4 +35,9 @@ async function getcomment(req, res) {
     res.status(500).json(error);
   }
 }
-export { addcomment, getcomment, deletecomment };
+
+function getParams(req, res) {
+  console.log("SALAM");
+  // console.log(req.params.id);
+}
+export { addcomment, getcomment, deletecomment, getParams };
