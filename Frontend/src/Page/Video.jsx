@@ -5,7 +5,7 @@ import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutl
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import Comments from "../Components/Comments";
-import Card from "../Components/Card";
+// import Card from "../Components/Card";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -110,11 +110,19 @@ function Video() {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
   const [channel, setchannel] = useState({});
-  // console.log(currentUser, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>currentUser");
   const dispatch = useDispatch();
   const path = useLocation().pathname.split("/")[2];
-  // console.log(path, ">>>>>>>>>>>>>>>>>>>>>>>>path");
   useEffect(() => {
+    axios.interceptors.request.use(
+      function (config) {
+        config.withCredentials = true;
+        return config;
+      },
+      function (error) {
+        return Promise.reject(error);
+      }
+    );
+
     const fetchData = async () => {
       try {
         const videoRes = await axios.get(
@@ -127,16 +135,6 @@ function Video() {
         // console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>>");
         setchannel(channelRes.data);
         dispatch(FetchSucces(videoRes.data));
-        // console.log(currentVideo, "currentVideo>>>>>>>>>>>>>>>>>>>>>>>>");
-        // console.log(currentVideo, ">>>>>>>>>>>>>>>>>>>>>>>>currentVideo");
-        // console.log(currentUser, ">>>>>>>>>>>>>>>>>>>>>>>>>currentUser");
-        // console.log(
-        //   videoRes.data.userId,
-        //   ">>>>>>>>>>>>>>>>>>>>videoRes.data.userId "
-        // );
-        // console.log(videoRes, ">>>>>>>>>>>>>>>>>>>>videoRes");
-        // console.log(channelRes, ">>>>>>>>>>>>>>>>>>channelRes");
-        // console.log(currentVideo._id, ">>>>>>>>>>>>>>>>>>currentVideo");
       } catch (error) {
         console.log(error);
         console.log(error.message);
@@ -154,12 +152,6 @@ function Video() {
     );
     dispatch(Dislike(currentUser.other._id));
   };
-  // console.log(channel, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>channel");
-  // console.log(currentVideo, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>currentVideo");
-  // console.log(
-  //   currentUser.other._id,
-  //   ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>currentUser._id"
-  // );
   return (
     <Container>
       <Content>
