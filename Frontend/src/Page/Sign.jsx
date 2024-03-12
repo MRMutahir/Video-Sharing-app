@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -72,6 +72,7 @@ function Sign() {
   const [name, setusername] = useState("");
   const [password, setpassword] = useState("");
   const dispatch = useDispatch();
+  // console.table(name.trim(""), password.trim(""));
 
   async function handelSignin(e) {
     e.preventDefault();
@@ -81,12 +82,17 @@ function Sign() {
         `http://localhost:8000/api/auth/signin`,
         { name, password }
       );
+      console.log(
+        response.data.token,
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>token"
+      );
+      console.log(response, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>token");
       dispatch(LoginSucces(response.data));
       const authToken = response.data.token;
       let myDate = new Date();
       myDate.setDate(myDate.getDate() + 1);
       document.cookie = `access_token=${authToken};expires=${myDate};path=/`;
-       // console.log(response);
+      // console.log(response);
       // console.log(response.data.token);
     } catch (error) {
       dispatch(LoginFailure());
@@ -122,14 +128,14 @@ function Sign() {
         <SubTitle>to continue to LamaTube</SubTitle>
         <Input
           placeholder="username"
-          onChange={(e) => setusername(e.target.value)}
+          onChange={(e) => setusername(e.target.value.trim())}
           // value={username}
           // ref={username}
         />
         <Input
           type="password"
           placeholder="password"
-          onChange={(e) => setpassword(e.target.value)}
+          onChange={(e) => setpassword(e.target.value.trim())}
           // value={password}
           // ref={password}
         />

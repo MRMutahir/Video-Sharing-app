@@ -6,11 +6,17 @@ import { videorouter } from "./routes/video.js";
 import { commentrouter } from "./routes/comment.js";
 import { authRoutes } from "./routes/auth.js";
 import cookieParser from "cookie-parser";
-import  cors from "cors"
+import cors from "cors";
 
 let app = express();
 let port = 8000;
-app.use(cors())
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true,
+  })
+);
+
 dotenv.config();
 const connect = () => {
   mongoose

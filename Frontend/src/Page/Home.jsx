@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Card from "../Components/Card";
 import axios from "axios";
@@ -11,23 +11,30 @@ const Container = styled.div`
 
 const Home = ({ type }) => {
   const [videos, setVideos] = useState([]);
+  console.log(type, ">>>>>>>>>>>>>>>>type");
   useEffect(() => {
     fetchVideo();
   }, [type]);
-   console.log(type);
+
   const fetchVideo = async () => {
     try {
       const res = await axios.get(`http://localhost:8000/api/video/${type}`);
+      // const res = await axios.get(`http://localhost:8000/api/video/subscribes`);
+      // console.log(
+      //   res,
+      //   ">>>>>>>>>>>>>>type",
+      //   type,
+      //   ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>res"
+      // );
       setVideos(res.data);
-      // console.log(res);
     } catch (error) {
-      console.log("err", error);
+      console.log("error", error);
     }
   };
 
   return (
     <Container>
-      {videos.map((video, index) => (
+      {videos.map((video) => (
         <Card key={video._id} video={video} />
       ))}
     </Container>

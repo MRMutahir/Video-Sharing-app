@@ -30,6 +30,7 @@ const ChannelImage = styled.img`
   border-radius: 50%;
   background-color: aliceblue;
   display: ${(props) => (props.type == "sm" ? "none" : "block")};
+  object-fit: cover;
 `;
 const Texts = styled.div``;
 const Title = styled.h1`
@@ -49,7 +50,14 @@ const Info = styled.div`
 `;
 function Card({ type, video }) {
   // console.log(Card._id == "64f46e504b234353ada20ede");
-  // console.log(video);
+  // console.log(
+  //   video.userId,
+  //   ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>video"
+  // );
+  // console.log(
+  //   video,
+  //   ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>video.userId"
+  // );
   const [channel, setChannel] = useState({});
   useEffect(() => {
     fetchChannel();
@@ -60,15 +68,20 @@ function Card({ type, video }) {
       const res = await axios.get(
         `http://localhost:8000/api/user/find/${video.userId}`
       );
+      // console.log("channel>>>>>>>>>>>>>>>>>>", res.data);
       setChannel(res.data);
     } catch (error) {
       console.log("err", error);
     }
   };
+  // console.log(channel, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>channel");
+  // console.log(video.imgUrl, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>video.imgURL");
+  // console.log(video, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>video.imgURL");
+
   return (
     <Link to={`/video/${video._id}`} style={{ textDecoration: "none" }}>
       <Container type={type}>
-        <Image type={type} src={video.imgURL} />
+        <Image type={type} src={video.imgUrl} />
         <Details type={type}>
           <ChannelImage type={type} src={channel?.image} />
           <Texts>

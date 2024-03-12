@@ -104,7 +104,7 @@ async function subscribes(req, res) {
     // console.log(list);
     // Extract the data from the response and then apply .flat() and .sort()
     const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
-    console.log(responseData);
+    // console.log(responseData);
 
     // Send the sorted list as the response
     res.status(200).json(responseData);

@@ -3,11 +3,12 @@ import Navbar from "../src/Components/Navbar";
 import styled, { ThemeProvider } from "styled-components";
 import "./App.css";
 import { darkTheme, lightTheme } from "./Utils/Theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Home from "../src/Page/Home";
 import Sign from "../src/Page/Sign";
 import Video from "./Page/Video";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import axios from "axios";
+import { Routes, Route } from "react-router-dom";
 // import Signin from "./Page/Signin";
 // import Home from "@mui/icons-material/Home";
 
@@ -23,6 +24,20 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+  useEffect(() => {
+    axios.interceptors.request.use(
+      function (config) {
+        config.withCredentials = true;
+        return config;
+      },
+      function (error) {
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {};
+  }, []);
+
   const [darkmode, setdarkmode] = useState(true);
 
   return (
@@ -34,10 +49,10 @@ function App() {
           <Wrapper>
             <Routes>
               <Route path="/">
-                <Route index element={<Home   type="random"/>} />
-                <Route path="trends" element={<Home type="trend"  />} />
-                <Route path="subscribes" element={<Home type="subscribes"   />} />
-                <Route path="signin" element={<Sign/>} />
+                <Route index element={<Home type="random" />} />
+                <Route path="trends" element={<Home type="trend" />} />
+                <Route path="subscribes" element={<Home type="subscribes" />} />
+                <Route path="signin" element={<Sign />} />
                 <Route element={<Sign />} />
                 <Route path="video">
                   <Route path=":id" element={<Video />} />
