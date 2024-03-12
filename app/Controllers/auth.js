@@ -7,7 +7,6 @@ async function signup(req, res) {
   const userBody = req.body;
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(req.body.password, salt);
-
   try {
     const newUser = new User({ ...userBody, password: hash });
     await newUser.save();

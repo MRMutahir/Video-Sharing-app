@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const Home = ({ type }) => {
   const [videos, setVideos] = useState([]);
-  console.log(type, ">>>>>>>>>>>>>>>>type");
+  // console.log(type, ">>>>>>>>>>>>>>>>type");
   useEffect(() => {
     fetchVideo();
   }, [type]);

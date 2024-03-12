@@ -64,7 +64,9 @@ const Avatar = styled.img`
 
 function Navbar() {
   const { currentUser } = useSelector((state) => state.user);
-  // console.log(currentUser, "currentUser>>>>>>>>>>>>");
+  console.log(currentUser, "currentUser>>>>>>>>>>>>");
+  // console.log(currentUser.other.image, "currentUser>>>>>>>>>>>>");
+  // console.log(currentUser.other.name, "currentUser>>>>>>>>>>>>");
   return (
     <Container>
       <Warpper>
@@ -75,8 +77,8 @@ function Navbar() {
         {currentUser ? (
           <User>
             <VideoCallIcon />
-            <Avatar src={currentUser.image} />
-            {currentUser.name}
+            <Avatar src={currentUser.image || currentUser.other.image} />
+            {currentUser.name || currentUser.other.name}
           </User>
         ) : (
           <Link to="signin" style={{ textDecoration: "none" }}>

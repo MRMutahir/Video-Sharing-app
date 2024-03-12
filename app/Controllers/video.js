@@ -101,11 +101,10 @@ async function subscribes(req, res) {
         return await Video.find({ userId: channelId });
       })
     );
+    const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
     // console.log(list);
     // Extract the data from the response and then apply .flat() and .sort()
-    const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
     // console.log(responseData);
-
     // Send the sorted list as the response
     res.status(200).json(responseData);
   } catch (error) {

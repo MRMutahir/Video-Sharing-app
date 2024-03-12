@@ -11,7 +11,6 @@ import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 // import Signin from "./Page/Signin";
 // import Home from "@mui/icons-material/Home";
-
 const Container = styled.div`
   display: flex;
 `;
@@ -37,9 +36,7 @@ function App() {
 
     return () => {};
   }, []);
-
   const [darkmode, setdarkmode] = useState(true);
-
   return (
     <ThemeProvider theme={darkmode ? darkTheme : lightTheme}>
       <Container>
