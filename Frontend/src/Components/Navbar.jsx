@@ -64,7 +64,7 @@ const Avatar = styled.img`
 
 function Navbar() {
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser, "currentUser>>>>>>>>>>>>");
+  // console.log(currentUser, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.image, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.name, "currentUser>>>>>>>>>>>>");
   return (

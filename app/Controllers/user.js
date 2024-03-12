@@ -41,6 +41,7 @@ async function deleted(req, res) {
 // GET USER
 async function getuser(req, res) {
   // console.log(req.params.id);
+  console.log("user  API ");
   try {
     const user = await User.findById(req.params.id);
     console.log(user);
@@ -81,31 +82,31 @@ async function Unsubscribe(req, res, next) {
 }
 
 async function like(req, res) {
-  // console.log("SALAM");
-  const userId = req.user.id;
-  const videoId = req.params.videoId;
   try {
+    const userId = req.user.id;
+    const videoId = req.params.videoId;
     await Video.findByIdAndUpdate(videoId, {
       $addToSet: { likes: userId },
-      $pull: { dislikes: userId },
+      $pull: { dislikes: userId }, // Remove user from dislikes array if present
     });
     res.status(200).json("The video has been liked.");
   } catch (error) {
-    res.status(404).json(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 }
+
 async function dislike(req, res) {
-  // console.log("SALAM");
-  const userId = req.user.id;
-  const videoId = req.params.videoId;
   try {
+    const userId = req.user.id;
+    const videoId = req.params.videoId;
     await Video.findByIdAndUpdate(videoId, {
-      $addToSet: { likes: userId },
-      $pull: { dislikes: userId },
+      $addToSet: { dislikes: userId },
+      $pull: { likes: userId }, // Remove user from likes array if present
     });
     res.status(200).json("The video has been disliked.");
   } catch (error) {
-    res.status(404).json(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 }
+
 export { update, deleted, getuser, subscribe, Unsubscribe, like, dislike };

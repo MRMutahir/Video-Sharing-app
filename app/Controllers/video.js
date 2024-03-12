@@ -52,6 +52,8 @@ async function deleteVideo(req, res) {
 
 // GET VIDEO
 async function getVideo(req, res) {
+  console.log("video  API");
+  // res.status(404).json({ error: "SALAM" });
   try {
     const video = await Video.findById(req.params.id);
     if (!video) {

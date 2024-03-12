@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
@@ -103,32 +103,40 @@ const Image = styled.img`
   height: 40px;
   width: 40px;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 function Video() {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
+  const [channel, setchannel] = useState({});
+  // console.log(currentUser, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>currentUser");
   const dispatch = useDispatch();
   const path = useLocation().pathname.split("/")[2];
-  const [channel, setchannel] = useState({});
+  // console.log(path, ">>>>>>>>>>>>>>>>>>>>>>>>path");
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Use effect chl raha hen ");
       try {
         const videoRes = await axios.get(
-          `/video/find/${path}`
+          `http://localhost:8000/api/video/find/${path}`
         );
+        // console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>>");
         const channelRes = await axios.get(
-          `/user/find/${videoRes.data.userId}`
+          `http://localhost:8000/api/user/find/${videoRes.data.userId}`
         );
+        // console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>>");
         setchannel(channelRes.data);
         dispatch(FetchSucces(videoRes.data));
         // console.log(currentVideo, "currentVideo>>>>>>>>>>>>>>>>>>>>>>>>");
         // console.log(currentVideo, ">>>>>>>>>>>>>>>>>>>>>>>>currentVideo");
         // console.log(currentUser, ">>>>>>>>>>>>>>>>>>>>>>>>>currentUser");
-        console.log(videoRes.data.userId, ">>>>>>>>>>>>>>>>>>>>videoRes.data.userId ");
-        console.log(videoRes, ">>>>>>>>>>>>>>>>>>>>videoRes");
-        console.log(channelRes, ">>>>>>>>>>>>>>>>>>channelRes");
+        // console.log(
+        //   videoRes.data.userId,
+        //   ">>>>>>>>>>>>>>>>>>>>videoRes.data.userId "
+        // );
+        // console.log(videoRes, ">>>>>>>>>>>>>>>>>>>>videoRes");
+        // console.log(channelRes, ">>>>>>>>>>>>>>>>>>channelRes");
+        // console.log(currentVideo._id, ">>>>>>>>>>>>>>>>>>currentVideo");
       } catch (error) {
         console.log(error);
         console.log(error.message);
@@ -137,16 +145,21 @@ function Video() {
     fetchData();
   }, [path, dispatch]);
   const handellikes = async () => {
-    await axios.put(`/user/like/${currentVideo._id}`);
-    dispatch(Like(currentUser._id));
+    await axios.put(`http://localhost:8000/api/user/like/${currentVideo._id}`);
+    dispatch(Like(currentUser.other._id));
   };
   const handeldislikes = async () => {
     await axios.put(
-      `/user/dislike/${currentVideo._id}`
+      `http://localhost:8000/api/user/dislike/${currentVideo._id}`
     );
-    dispatch(Dislike(currentUser._id));
+    dispatch(Dislike(currentUser.other._id));
   };
-
+  // console.log(channel, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>channel");
+  // console.log(currentVideo, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>currentVideo");
+  // console.log(
+  //   currentUser.other._id,
+  //   ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>currentUser._id"
+  // );
   return (
     <Container>
       <Content>
@@ -163,14 +176,13 @@ function Video() {
         </VideoWrapper>
         <Titte>{currentVideo?.title}</Titte>
         <Details>
-          {" "}
           <Info>
             {currentVideo?.views} views • {format(currentVideo?.createdAt)}
           </Info>
           <Buttons>
             <Buttons>
               <Button onClick={handellikes}>
-                {currentVideo?.likes?.includes(currentUser._id) ? (
+                {currentVideo.likes.includes(currentUser.other._id) ? (
                   <ThumbUpOffAltIcon />
                 ) : (
                   <ThumbUpOutlinedIcon />
@@ -178,7 +190,7 @@ function Video() {
                 {currentVideo?.likes.length}
               </Button>
               <Button onClick={handeldislikes}>
-                {currentVideo?.dislikes?.includes(currentUser._id) ? (
+                {currentVideo.dislikes.includes(currentUser.other._id) ? (
                   <ThumbDownOffAltIcon />
                 ) : (
                   <ThumbDownOffAltOutlinedIcon />
@@ -197,10 +209,10 @@ function Video() {
         <HR />
         <Channel>
           <Channelinfo>
-            <Image src={channel?.imgUrl} />
+            <Image src={channel?.image} />
             <ChannelDetails>
               <ChannelName>{channel?.name}</ChannelName>
-              <ChannelCounter>{channel?.subscribers}</ChannelCounter>
+              <ChannelCounter>{channel.subscribedUsers?.length}</ChannelCounter>
               <Discription>{currentVideo?.description}</Discription>
             </ChannelDetails>
           </Channelinfo>
