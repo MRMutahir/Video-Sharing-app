@@ -143,7 +143,11 @@ function Video() {
     fetchData();
   }, [path, dispatch]);
   const handellikes = async () => {
-    await axios.put(`http://localhost:8000/api/user/like/${currentVideo._id}`);
+    await axios.put(
+      `http://localhost:8000/api/user/like/${currentVideo._id}`,
+      {},
+      { withCredentials: true }
+    );
     dispatch(Like(currentUser.other._id));
   };
   const handeldislikes = async () => {
@@ -174,7 +178,7 @@ function Video() {
           <Buttons>
             <Buttons>
               <Button onClick={handellikes}>
-                {currentVideo.likes.includes(currentUser.other._id) ? (
+                {currentVideo?.likes.includes(currentUser.other._id) ? (
                   <ThumbUpOffAltIcon />
                 ) : (
                   <ThumbUpOutlinedIcon />
@@ -182,7 +186,7 @@ function Video() {
                 {currentVideo?.likes.length}
               </Button>
               <Button onClick={handeldislikes}>
-                {currentVideo.dislikes.includes(currentUser.other._id) ? (
+                {currentVideo?.dislikes.includes(currentUser.other._id) ? (
                   <ThumbDownOffAltIcon />
                 ) : (
                   <ThumbDownOffAltOutlinedIcon />
