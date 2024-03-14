@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import Comments from "../Components/Comments";
@@ -179,19 +181,31 @@ function Video() {
             <Buttons>
               <Button onClick={handellikes}>
                 {currentVideo?.likes.includes(currentUser.other._id) ? (
-                  <ThumbUpOffAltIcon />
+                  <ThumbUpIcon
+                    style={{
+                      transform: "scale(1)",
+                      color: "blue",
+                    }}
+                  />
                 ) : (
-                  <ThumbUpOutlinedIcon />
+                  <ThumbUpOffAltIcon />
                 )}
                 {currentVideo?.likes.length}
+                &nbsp;&nbsp;Likes
               </Button>
               <Button onClick={handeldislikes}>
                 {currentVideo?.dislikes.includes(currentUser.other._id) ? (
-                  <ThumbDownOffAltIcon />
+                  <ThumbDownIcon
+                    style={{
+                      transform: "scale(1)",
+                      color: "red",
+                    }}
+                  />
                 ) : (
                   <ThumbDownOffAltOutlinedIcon />
                 )}{" "}
-                Dislike
+                {currentVideo?.dislikes.length}
+                &nbsp;&nbsp;Dislikes
               </Button>
               <Button>
                 <ReplyOutlinedIcon /> Share
