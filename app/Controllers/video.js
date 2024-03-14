@@ -95,6 +95,8 @@ async function trend(req, res) {
   }
 }
 async function subscribes(req, res) {
+  // res.status(200).json({ message: "SALAM" });
+
   try {
     const user = await User.findById(req.user.id);
     const subscribedChannels = user.subscribedUsers;
@@ -104,16 +106,16 @@ async function subscribes(req, res) {
       })
     );
     const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
-    // console.log(list);
-    // Extract the data from the response and then apply .flat() and .sort()
-    // console.log(responseData);
-    // Send the sorted list as the response
-    res.status(200).json(responseData);
+    console.log("responseData", responseData);
+    res.json(responseData);
   } catch (error) {
     res.status(500).json(error);
   }
 }
 
+async function moe(req, res) {
+  res.status(200).json({ message: "SALAM" });
+}
 async function bytags(req, res) {
   const tags = req.query.tags.split(",");
   try {
@@ -147,4 +149,5 @@ export {
   bytags,
   search,
   trend,
+  moe,
 };

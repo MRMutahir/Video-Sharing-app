@@ -40,12 +40,27 @@ export const videoSlice = createSlice({
         );
       }
     },
-    // Subscribes: (state, action) => {
-    //   if(state.currentUser.other.subscribedUsers.includes(channel._id))
-    // },
+    Subscribes: (state, action) => {
+      if (state.currentUser.other.subscribedUsers.includes(action.payload)) {
+        state.currentUser.other.subscribedUsers.splice(
+          state.currentUser.other.subscribedUsers.findIndex(
+            (channelID) => channelID === action.payload
+          ),
+          1
+        );
+      } else {
+        state.currentUser.other.subscribedUsers.push(action.payload);
+      }
+    },
   },
 });
 
-export const { FetchStart, FetchSucces, FetchFailure, Like, Dislike } =
-  videoSlice.actions;
+export const {
+  FetchStart,
+  FetchSucces,
+  FetchFailure,
+  Like,
+  Dislike,
+  Subscribes,
+} = videoSlice.actions;
 export default videoSlice.reducer;

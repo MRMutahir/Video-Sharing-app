@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { format } from "timeago.js";
-import { Dislike, FetchSucces, Like } from "../Redux/VideoSlice.js";
+import { Dislike, FetchSucces, Like, Subscribes } from "../Redux/VideoSlice.js";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 
 const Container = styled.div`
@@ -158,9 +158,13 @@ function Video() {
   const handelSUBSCRIB = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/user/subscribe/${currentUser.other._id}`
+        `http://localhost:8000/api/user/subscribe/${channel._id}`
       );
-
+      console.log(
+        response,
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> http://localhost:8000/api/user/subscribe/${channel._id}"
+      );
+      // dispatch(Subscribes(channel._id));
       if (response.status === 200) {
         console.log("Subscription successful");
       } else {
@@ -170,10 +174,12 @@ function Video() {
       console.error("Error occurred while subscribing:", error);
     }
   };
-  console.log(
-    channel.subscribedUsers,
-    "channel.subscribedUsers.subscribedUsers>>>>>>>>>>>>>>>>>>>>>"
-  );
+  // console.log(
+  //   channel,
+  //   "channel.subscribedUsers.subscribedUsers>>>>>>>>>>>>>>>>>>>>>"
+  // );
+  console.log(currentUser, "currentUser>>>>>>>>>>>>>>>>");
+
   return (
     <Container>
       <Content>
@@ -198,7 +204,7 @@ function Video() {
               <Buttons>
                 <Button onClick={handellikes}>
                   {currentVideo.likes &&
-                  currentVideo.likes.includes(currentUser.other._id) ? (
+                  currentVideo.likes.includes(currentUser.other?._id) ? (
                     <ThumbUpIcon
                       style={{
                         transform: "scale(1)",
@@ -213,7 +219,7 @@ function Video() {
                 </Button>
                 <Button onClick={handeldislikes}>
                   {currentVideo.dislikes &&
-                  currentVideo.dislikes?.includes(currentUser.other._id) ? (
+                  currentVideo.dislikes?.includes(currentUser.other?._id) ? (
                     <ThumbDownIcon
                       style={{
                         transform: "scale(1)",
@@ -236,7 +242,7 @@ function Video() {
             <Image src={channel?.image} />
             <ChannelDetails>
               <ChannelName>{channel?.name}</ChannelName>
-              <ChannelCounter>{channel.subscribers}</ChannelCounter>
+              <ChannelCounter>{channel.subscribedUsers?.length}</ChannelCounter>
               <Discription>{currentVideo?.description}</Discription>
             </ChannelDetails>
           </Channelinfo>

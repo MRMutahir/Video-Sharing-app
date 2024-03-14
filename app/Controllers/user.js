@@ -54,38 +54,58 @@ async function getuser(req, res) {
 // Subscribe
 async function subscribe(req, res, next) {
   try {
-    let db_User = await User.findById(req.user.id);
-    if (!db_User.subscribedUsers.includes(req.params.id)) {
-      await User.findByIdAndUpdate(req.user.id, {
-        $push: { subscribedUsers: req.params.id },
-      });
-      await User.findByIdAndUpdate(req.params.id, {
-        $inc: { subscribers: 1 },
-      });
-      res.status(200).json({ message: "Subscribe successfully" });
-    } else {
-      res.status(400).json({ message: "You are already subscribed" });
-    }
+    await User.findByIdAndUpdate(req.user.id, {
+      $addToSet: { subscribedUsers: req.params.id },
+      $inc: { subscribers: 1 },
+    });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
+  // if (!db_User.subscribedUsers.includes(req.params.id)) {
+  //   await User.findByIdAndUpdate(req.user.id, {
+  //     $push: { subscribedUsers: req.params.id },
+  //   });
+  //   await User.findByIdAndUpdate(req.params.id, {
+  //     $inc: { subscribers: 1 },
+  //   });
+  //   res.status(200).json({
+  //     message: "Subscribe successfully",
+  //     db: db_User.subscribedUsers,
+  //   });
+  // } else {
+  //   res.status(400).json({
+  //     message: "You are already subscribed",
+  //     db: db_User.subscribedUsers,
+  //   });
+  // }
 }
 
 // Unsubscribe
 async function Unsubscribe(req, res, next) {
   try {
-    let db_User = await User.findById(req.user.id);
-    if (db_User.subscribedUsers.includes(req.params.id)) {
-      await User.findByIdAndUpdate(req.user.id, {
-        $pull: { subscribedUsers: req.params.id },
-      });
-      await User.findByIdAndUpdate(req.params.id, {
-        $inc: { subscribers: -1 },
-      });
-      res.status(200).json({ message: "Unsubscribe successfully" });
-    } else {
-      res.status(400).json({ message: "You are not subscribed to this user" });
-    }
+    await User.findByIdAndUpdate(req.user.id, {
+      $pull: { subscribedUsers: req.params.id },
+      $inc: { subscribers: 1 },
+    });
+    // let db_User = await User.findById(req.user.id);
+    // if (db_User.subscribedUsers.includes(req.params.id)) {
+    //   await User.findByIdAndUpdate(req.user.id, {
+    //     $pull: { subscribedUsers: req.params.id },
+    //   });
+    //   await User.findByIdAndUpdate(req.params.id, {
+    //     $inc: { subscribers: -1 },
+    //   });
+
+    //   res.status(200).json({
+    //     message: "Unsubscribe successfully",
+    //     db: db_User.subscribedUsers,
+    //   });
+    // } else {
+    //   res.status(400).json({
+    //     message: "You are not subscribed to this user",
+    //     db: db_User.subscribedUsers,
+    //   });
+    // }
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }

@@ -10,6 +10,7 @@ import {
   bytags,
   search,
   trend,
+  moe,
 } from "../Controllers/video.js";
 import { verifytoken } from "../verifytoken.js";
 const videorouter = express.Router();
@@ -23,5 +24,6 @@ videorouter.get("/random", random);
 videorouter.get("/subscribes", verifytoken, subscribes);
 videorouter.get("/tags", bytags);
 videorouter.get("/search", search);
+videorouter.get("/moe", moe);
 
 export { videorouter };

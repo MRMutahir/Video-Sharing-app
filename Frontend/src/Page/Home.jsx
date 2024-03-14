@@ -18,7 +18,9 @@ const Home = ({ type }) => {
 
   const fetchVideo = async () => {
     try {
-      const res = await axios.get(`http://localhost:8000/api/video/${type}`);
+      const res = await axios.get(`http://localhost:8000/api/video/${type}`, {
+        withCredentials: true,
+      });
       // const res = await axios.get(`http://localhost:8000/api/video/subscribes`);
       // console.log(
       //   res,

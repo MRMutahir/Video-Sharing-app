@@ -24,7 +24,7 @@ async function signin(req, res) {
   const isPssword = await bcrypt.compare(req.body.password, user.password);
   if (isPssword) {
     const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, {
-      expiresIn: "1h",
+      expiresIn: "24h",
     });
     res.cookie("access_token", token, {
       httpOnly: true,
@@ -36,6 +36,7 @@ async function signin(req, res) {
     res.status(500).json("User not found check your user name or password");
   }
 }
+
 async function googleAuth(req, res) {
   try {
     const user = await User.findOne({ email: req.body.email });
