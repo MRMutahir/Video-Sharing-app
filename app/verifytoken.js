@@ -3,6 +3,7 @@ import "dotenv/config";
 
 const verifytoken = (req, res, next) => {
   const token = req.cookies["access_token"];
+  // console.log(token, ">>>>>>>>>>>>>>>>>>>>token");
   // if (!token) return res.status(500).json("You are not authenticated!");
 
   // const user = jwt.verify(token, process.env.JWT_TOKEN);

@@ -40,6 +40,9 @@ export const videoSlice = createSlice({
         );
       }
     },
+    // Subscribes: (state, action) => {
+    //   if(state.currentUser.other.subscribedUsers.includes(channel._id))
+    // },
   },
 });
 

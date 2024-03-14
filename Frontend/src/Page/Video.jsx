@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
-import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import Comments from "../Components/Comments";
 // import Card from "../Components/Card";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,7 +11,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 import { Dislike, FetchSucces, Like } from "../Redux/VideoSlice.js";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
+
 const Container = styled.div`
   display: flex;
   gap: 24px;
@@ -130,11 +127,11 @@ function Video() {
         const videoRes = await axios.get(
           `http://localhost:8000/api/video/find/${path}`
         );
-        // console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>>");
+        console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>>");
         const channelRes = await axios.get(
           `http://localhost:8000/api/user/find/${videoRes.data.userId}`
         );
-        // console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>>");
+        console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>>");
         setchannel(channelRes.data);
         dispatch(FetchSucces(videoRes.data));
       } catch (error) {
@@ -158,6 +155,25 @@ function Video() {
     );
     dispatch(Dislike(currentUser.other._id));
   };
+  const handelSUBSCRIB = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/user/subscribe/${currentUser.other._id}`
+      );
+
+      if (response.status === 200) {
+        console.log("Subscription successful");
+      } else {
+        console.error("Subscription failed");
+      }
+    } catch (error) {
+      console.error("Error occurred while subscribing:", error);
+    }
+  };
+  console.log(
+    channel.subscribedUsers,
+    "channel.subscribedUsers.subscribedUsers>>>>>>>>>>>>>>>>>>>>>"
+  );
   return (
     <Container>
       <Content>
@@ -177,44 +193,42 @@ function Video() {
           <Info>
             {currentVideo?.views} views • {format(currentVideo?.createdAt)}
           </Info>
-          <Buttons>
-            <Buttons>
-              <Button onClick={handellikes}>
-                {currentVideo?.likes.includes(currentUser.other._id) ? (
-                  <ThumbUpIcon
-                    style={{
-                      transform: "scale(1)",
-                      color: "blue",
-                    }}
-                  />
-                ) : (
-                  <ThumbUpOffAltIcon />
-                )}
-                {currentVideo?.likes.length}
-                &nbsp;&nbsp;Likes
-              </Button>
-              <Button onClick={handeldislikes}>
-                {currentVideo?.dislikes.includes(currentUser.other._id) ? (
-                  <ThumbDownIcon
-                    style={{
-                      transform: "scale(1)",
-                      color: "red",
-                    }}
-                  />
-                ) : (
-                  <ThumbDownOffAltOutlinedIcon />
-                )}{" "}
-                {currentVideo?.dislikes.length}
-                &nbsp;&nbsp;Dislikes
-              </Button>
-              <Button>
-                <ReplyOutlinedIcon /> Share
-              </Button>
-              <Button>
-                <AddTaskOutlinedIcon /> Save
-              </Button>
-            </Buttons>
-          </Buttons>
+          {currentVideo && (
+            <>
+              <Buttons>
+                <Button onClick={handellikes}>
+                  {currentVideo.likes &&
+                  currentVideo.likes.includes(currentUser.other._id) ? (
+                    <ThumbUpIcon
+                      style={{
+                        transform: "scale(1)",
+                        color: "blue",
+                      }}
+                    />
+                  ) : (
+                    <ThumbUpOffAltIcon />
+                  )}
+                  {currentVideo.likes ? currentVideo.likes.length : 0}
+                  &nbsp;&nbsp;Likes
+                </Button>
+                <Button onClick={handeldislikes}>
+                  {currentVideo.dislikes &&
+                  currentVideo.dislikes?.includes(currentUser.other._id) ? (
+                    <ThumbDownIcon
+                      style={{
+                        transform: "scale(1)",
+                        color: "red",
+                      }}
+                    />
+                  ) : (
+                    <ThumbDownOffAltOutlinedIcon />
+                  )}
+                  {currentVideo.dislikes ? currentVideo.dislikes.length : 0}
+                  &nbsp;&nbsp;Dislikes
+                </Button>
+              </Buttons>
+            </>
+          )}
         </Details>
         <HR />
         <Channel>
@@ -222,11 +236,15 @@ function Video() {
             <Image src={channel?.image} />
             <ChannelDetails>
               <ChannelName>{channel?.name}</ChannelName>
-              <ChannelCounter>{channel.subscribedUsers?.length}</ChannelCounter>
+              <ChannelCounter>{channel.subscribers}</ChannelCounter>
               <Discription>{currentVideo?.description}</Discription>
             </ChannelDetails>
           </Channelinfo>
-          <Subscribe>Subscribe</Subscribe>
+          <Subscribe onClick={handelSUBSCRIB}>
+            {channel.subscribedUsers?.includes(channel._id)
+              ? "SUBSCRIBED"
+              : "SUBSCRIBE"}
+          </Subscribe>
         </Channel>
         <HR />
         <Comments />
