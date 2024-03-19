@@ -21,17 +21,24 @@ async function signup(req, res) {
 async function signin(req, res) {
   const user = await User.findOne({ name: req.body.name });
   if (!user) return res.status(404).send("User Not Found");
-  const isPssword = await bcrypt.compare(req.body.password, user.password);
-  if (isPssword) {
-    const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, {
+  const isPssword = bcrypt.compare(req.body.password, user.password);
+
+  const token = jwt.sign(
+    { id: user._id, name: user.name },
+    process.env.JWT_TOKEN,
+    {
       expiresIn: "24h",
-    });
-    res.cookie("access_token", token, {
-      httpOnly: true,
-    });
+    }
+  );
+  // console.log(token, ">>>>>>>>>>>>>auth token");
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+  });
+
+  if (isPssword) {
     const { password, ...other } = user._doc;
-    res.status(200).json({ other, token });
-    // console.log(token);
+    res.status(200).json({ other });
   } else {
     res.status(500).json("User not found check your user name or password");
   }
@@ -44,7 +51,7 @@ async function googleAuth(req, res) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, {
         expiresIn: "1h",
       });
-      res.cookie("access_token", token, {
+      res.cookie("token", token, {
         httpOnly: true,
       });
       res.status(200).json(user._doc);

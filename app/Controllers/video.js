@@ -94,28 +94,56 @@ async function trend(req, res) {
     res.status(500).json(error);
   }
 }
-async function subscribes(req, res) {
-  // res.status(200).json({ message: "SALAM" });
+// async function subscribes(req, res) {
+//   // res.status(200).json({ message: "SALAM" });
+//   try {
+//     const user = await User.findById(req.user.id);
+//     const subscribedChannels = user.subscribedUsers;
+//     const list = await Promise.all(
+//       subscribedChannels.map(async (channelId) => {
+//         return await Video.find({ userId: channelId });
+//       })
+//     );
+//     const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
+//     console.log("responseData", responseData);
+//     res.json(responseData);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// }
 
+const subscribes = async (req, res, next) => {
+  // console.log("SALAM");
+  // console.log(req.user.id, ">>>>>>>>>>>>>>>>>>>>>>>>>>req.user.id");
   try {
     const user = await User.findById(req.user.id);
     const subscribedChannels = user.subscribedUsers;
+    // console.log()
+
+    // console.log("Subscribed Channels:", subscribedChannels);
+
     const list = await Promise.all(
       subscribedChannels.map(async (channelId) => {
         return await Video.find({ userId: channelId });
       })
     );
-    const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
-    console.log("responseData", responseData);
-    res.json(responseData);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-}
 
-async function moe(req, res) {
-  res.status(200).json({ message: "SALAM" });
-}
+    console.log("List of Videos:", list);
+
+    // console.log(list, ">>>>>>>>>>>>>>>>>>>>>");
+    // const list = await Promise.all(
+    //   subscribedChannels.map(async (channelId) => {
+    //     return await Video.find({ userId: channelId });
+    //   })
+    // );
+    // console.log(list, ">>>>>>>>>>>>>>>>>>>>>>>>");
+
+    // res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt));
+  } catch (err) {
+    next(err);
+  }
+};
+
 async function bytags(req, res) {
   const tags = req.query.tags.split(",");
   try {
@@ -149,5 +177,4 @@ export {
   bytags,
   search,
   trend,
-  moe,
 };

@@ -34,11 +34,13 @@ const Home = ({ type }) => {
     }
   };
 
+  // console.log(videos, ">>>>>>>>>>>>>>>>>>>>>>>>>>videos");
+
   return (
     <Container>
-      {videos.map((video) => (
+      {/* {videos.map((video) => (
         <Card key={video._id} video={video} />
-      ))}
+      ))} */}
     </Container>
   );
 };
