@@ -54,30 +54,25 @@ async function getuser(req, res) {
 // Subscribe
 async function subscribe(req, res, next) {
   try {
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    if (user.subscribedUsers.includes(req.params.id)) {
+      return res.status(201).json({ message: "Already subscribed" });
+    }
+
     await User.findByIdAndUpdate(req.user.id, {
       $addToSet: { subscribedUsers: req.params.id },
       $inc: { subscribers: 1 },
     });
+
+    res.status(200).json({ message: "Subscribed successfully" });
   } catch (error) {
+    console.error("Error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-  // if (!db_User.subscribedUsers.includes(req.params.id)) {
-  //   await User.findByIdAndUpdate(req.user.id, {
-  //     $push: { subscribedUsers: req.params.id },
-  //   });
-  //   await User.findByIdAndUpdate(req.params.id, {
-  //     $inc: { subscribers: 1 },
-  //   });
-  //   res.status(200).json({
-  //     message: "Subscribe successfully",
-  //     db: db_User.subscribedUsers,
-  //   });
-  // } else {
-  //   res.status(400).json({
-  //     message: "You are already subscribed",
-  //     db: db_User.subscribedUsers,
-  //   });
-  // }
 }
 
 // Unsubscribe
@@ -117,7 +112,7 @@ async function like(req, res) {
     const videoId = req.params.videoId;
     await Video.findByIdAndUpdate(videoId, {
       $addToSet: { likes: userId },
-      $pull: { dislikes: userId }, // Remove user from dislikes array if present
+      $pull: { dislikes: userId },
     });
     res.status(200).json("The video has been liked.");
   } catch (error) {

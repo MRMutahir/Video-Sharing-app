@@ -113,14 +113,9 @@ async function trend(req, res) {
 // }
 
 const subscribes = async (req, res, next) => {
-  // console.log("SALAM");
-  // console.log(req.user.id, ">>>>>>>>>>>>>>>>>>>>>>>>>>req.user.id");
   try {
     const user = await User.findById(req.user.id);
     const subscribedChannels = user.subscribedUsers;
-    // console.log()
-
-    // console.log("Subscribed Channels:", subscribedChannels);
 
     const list = await Promise.all(
       subscribedChannels.map(async (channelId) => {
@@ -128,7 +123,7 @@ const subscribes = async (req, res, next) => {
       })
     );
 
-    console.log("List of Videos:", list);
+    res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt));
 
     // console.log(list, ">>>>>>>>>>>>>>>>>>>>>");
     // const list = await Promise.all(

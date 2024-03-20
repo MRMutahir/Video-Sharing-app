@@ -16,7 +16,7 @@ export const videoSlice = createSlice({
       state.loading = false;
       state.currentVideo = action.payload;
     },
-    FetchFailure: (state, action) => {
+    FetchFailure: (state) => {
       state.loading = false;
       state.error = true;
     },

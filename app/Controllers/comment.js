@@ -25,7 +25,7 @@ async function deletecomment(req, res) {
   }
 }
 async function getcomment(req, res) {
-  console.log(req.params.id);
+  // console.log(req.params.id);
   try {
     const comments = await Comment.find({ videoId: req.params.id });
     // console.log(comments);

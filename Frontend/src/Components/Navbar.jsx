@@ -4,6 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import Upload from "./Upload";
 
 const Container = styled.div`
   position: sticky;
@@ -60,36 +62,41 @@ const Avatar = styled.img`
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 function Navbar() {
   const { currentUser } = useSelector((state) => state.user);
+  const { open, setOpen } = useState(false);
   // console.log(currentUser, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.image, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.name, "currentUser>>>>>>>>>>>>");
   return (
-    <Container>
-      <Warpper>
-        <Search>
-          <Input type="text" placeholder="Search" />
-          <SearchIcon />
-        </Search>
-        {currentUser ? (
-          <User>
-            <VideoCallIcon />
-            <Avatar src={currentUser.image || currentUser.other.image} />
-            {currentUser.name || currentUser.other.name}
-          </User>
-        ) : (
-          <Link to="signin" style={{ textDecoration: "none" }}>
-            <Button>
-              {" "}
-              <AccountCircleOutlinedIcon /> Sign in
-            </Button>
-          </Link>
-        )}
-      </Warpper>
-    </Container>
+    <>
+      <Container>
+        <Warpper>
+          <Search>
+            <Input type="text" placeholder="Search" />
+            <SearchIcon />
+          </Search>
+          {currentUser ? (
+            <User>
+              <VideoCallIcon onClick={() => setOpen(true)} />
+              <Avatar src={currentUser.image || currentUser.other.image} />
+              {currentUser.name || currentUser.other.name}
+            </User>
+          ) : (
+            <Link to="signin" style={{ textDecoration: "none" }}>
+              <Button>
+                {" "}
+                <AccountCircleOutlinedIcon /> Sign in
+              </Button>
+            </Link>
+          )}
+        </Warpper>
+      </Container>
+      {open && <Upload setOpen={false} />}
+    </>
   );
 }
 

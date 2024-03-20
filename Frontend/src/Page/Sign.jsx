@@ -72,7 +72,6 @@ function Sign() {
   const [name, setusername] = useState("");
   const [password, setpassword] = useState("");
   const dispatch = useDispatch();
-  // console.table(name.trim(""), password.trim(""));
 
   async function handelSignin(e) {
     e.preventDefault();
@@ -82,18 +81,7 @@ function Sign() {
         `http://localhost:8000/api/auth/signin`,
         { name, password }
       );
-      console.log(
-        response.data.token,
-        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>token"
-      );
-      console.log(response, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>token");
       dispatch(LoginSucces(response.data));
-      const authToken = response.data.token;
-      let myDate = new Date();
-      myDate.setDate(myDate.getDate() + 1);
-      document.cookie = `access_token=${authToken};expires=${myDate};path=/`;
-      // console.log(response);
-      // console.log(response.data.token);
     } catch (error) {
       dispatch(LoginFailure());
       if (error) console.log("user not found ");

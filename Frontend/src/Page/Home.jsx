@@ -21,13 +21,6 @@ const Home = ({ type }) => {
       const res = await axios.get(`http://localhost:8000/api/video/${type}`, {
         withCredentials: true,
       });
-      // const res = await axios.get(`http://localhost:8000/api/video/subscribes`);
-      // console.log(
-      //   res,
-      //   ">>>>>>>>>>>>>>type",
-      //   type,
-      //   ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>res"
-      // );
       setVideos(res.data);
     } catch (error) {
       console.log("error", error);
@@ -38,9 +31,9 @@ const Home = ({ type }) => {
 
   return (
     <Container>
-      {/* {videos.map((video) => (
+      {videos.map((video) => (
         <Card key={video._id} video={video} />
-      ))} */}
+      ))}
     </Container>
   );
 };

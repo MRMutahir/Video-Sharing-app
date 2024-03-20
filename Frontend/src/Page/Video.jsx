@@ -109,6 +109,20 @@ function Video() {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
   const [channel, setchannel] = useState({});
+
+  // console.log(
+  //   currentUser.other.subscribedUsers,
+  //   "currentUser channel subscribedUsers>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+  // );
+
+  // console.log(
+  //   currentUser.other,
+  //   "currentUser other>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+  // );
+  // console.log(
+  //   currentVideo._id,
+  //   "currentVideo other>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+  // );
   const dispatch = useDispatch();
   const path = useLocation().pathname.split("/")[2];
   useEffect(() => {
@@ -127,11 +141,11 @@ function Video() {
         const videoRes = await axios.get(
           `http://localhost:8000/api/video/find/${path}`
         );
-        console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>>");
+        // console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>>");
         const channelRes = await axios.get(
           `http://localhost:8000/api/user/find/${videoRes.data.userId}`
         );
-        console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>>");
+        // console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>>");
         setchannel(channelRes.data);
         dispatch(FetchSucces(videoRes.data));
       } catch (error) {
@@ -160,25 +174,16 @@ function Video() {
       const response = await axios.put(
         `http://localhost:8000/api/user/subscribe/${channel._id}`
       );
-      console.log(
-        response,
-        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> http://localhost:8000/api/user/subscribe/${channel._id}"
-      );
-      // dispatch(Subscribes(channel._id));
-      if (response.status === 200) {
-        console.log("Subscription successful");
-      } else {
-        console.error("Subscription failed");
+
+      if (response.status === 201) {
+        console.log("Already subscribed");
+      } else if (response.status === 200) {
+        console.log("Subscribed successfully");
       }
     } catch (error) {
       console.error("Error occurred while subscribing:", error);
     }
   };
-  // console.log(
-  //   channel,
-  //   "channel.subscribedUsers.subscribedUsers>>>>>>>>>>>>>>>>>>>>>"
-  // );
-  console.log(currentUser, "currentUser>>>>>>>>>>>>>>>>");
 
   return (
     <Container>
@@ -189,7 +194,7 @@ function Video() {
             height="480"
             src="https://www.youtube.com/embed/njC3p49OJWU"
             title="Class 01 of JavaScript Crash Course Live | Intro, Variables, Data Types"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
           ></iframe>
@@ -247,13 +252,13 @@ function Video() {
             </ChannelDetails>
           </Channelinfo>
           <Subscribe onClick={handelSUBSCRIB}>
-            {channel.subscribedUsers?.includes(channel._id)
+            {currentUser.other.subscribedUsers?.includes(channel._id)
               ? "SUBSCRIBED"
               : "SUBSCRIBE"}
           </Subscribe>
         </Channel>
         <HR />
-        <Comments />
+        <Comments videoId={currentVideo?._id} />
       </Content>
       {/* <Recommendation>
         <Card type="sm" />
