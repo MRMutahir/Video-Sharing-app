@@ -35,6 +35,11 @@ const Titte = styled.h1`
   color: ${({ theme }) => theme.text};
 `;
 
+const VideoFrame = styled.video`
+  max-height: 720px;
+  width: 100%;
+  object-fit: cover;
+`;
 const Details = styled.div`
   display: flex;
   align-items: center;
@@ -178,13 +183,14 @@ function Video() {
   //   channel,
   //   "channel.subscribedUsers.subscribedUsers>>>>>>>>>>>>>>>>>>>>>"
   // );
-  console.log(currentUser, "currentUser>>>>>>>>>>>>>>>>");
+  // console.log(currentUser, "currentUser>>>>>>>>>>>>>>>>");
 
   return (
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
+          <VideoFrame src={currentVideo?.videoUrl} controls />
+          {/* <iframe
             width="853"
             height="480"
             src="https://www.youtube.com/embed/njC3p49OJWU"
@@ -192,7 +198,7 @@ function Video() {
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
-          ></iframe>
+          ></iframe> */}
         </VideoWrapper>
         <Titte>{currentVideo?.title}</Titte>
         <Details>
