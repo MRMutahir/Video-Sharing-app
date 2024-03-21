@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -11,22 +10,10 @@ import {
 import app from "../FirebaseConfig.js";
 import { useNavigate } from "react-router-dom";
 
-=======
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-const Upload = ({ setOpen }) => {
-  return <Container>
-    
-  </Container>;
-};
-
-export default Upload;
->>>>>>> 1c639db663287f033eced6fbb3d232b5a41f4928
 const Container = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
-<<<<<<< HEAD
   left: 0;
   top: 0;
   background-color: #000000a6;
@@ -230,12 +217,3 @@ const Upload = ({ setOpen }) => {
 };
 
 export default Upload;
-=======
-  top: 0;
-  left: 0;
-  background-color: #000000a7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
->>>>>>> 1c639db663287f033eced6fbb3d232b5a41f4928

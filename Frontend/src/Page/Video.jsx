@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { format } from "timeago.js";
-import { Dislike, FetchSucces, Like, Subscribes } from "../Redux/VideoSlice.js";
+import { Dislike, FetchSucces, Like } from "../Redux/VideoSlice.js";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 
 const Container = styled.div`
@@ -21,9 +21,9 @@ const Content = styled.div`
   flex: 5;
 `;
 
-const Recommendation = styled.div`
-  flex: 2;
-`;
+// const Recommendation = styled.div`
+//   flex: 2;
+// `;
 
 const VideoWrapper = styled.div``;
 
@@ -179,7 +179,6 @@ function Video() {
       const response = await axios.put(
         `http://localhost:8000/api/user/subscribe/${channel._id}`
       );
-
       if (response.status === 201) {
         console.log("Already subscribed");
       } else if (response.status === 200) {
@@ -189,14 +188,6 @@ function Video() {
       console.error("Error occurred while subscribing:", error);
     }
   };
-<<<<<<< HEAD
-  // console.log(
-  //   channel,
-  //   "channel.subscribedUsers.subscribedUsers>>>>>>>>>>>>>>>>>>>>>"
-  // );
-  // console.log(currentUser, "currentUser>>>>>>>>>>>>>>>>");
-=======
->>>>>>> 1c639db663287f033eced6fbb3d232b5a41f4928
 
   return (
     <Container>

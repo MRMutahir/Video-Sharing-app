@@ -31,7 +31,7 @@ async function signin(req, res) {
     }
   );
   // console.log(token, ">>>>>>>>>>>>>auth token");
-  res.cookie("token", token, {
+  res.cookie("access_token", token, {
     httpOnly: true,
     secure: true,
   });
