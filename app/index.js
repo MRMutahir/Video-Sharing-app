@@ -16,6 +16,8 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.json());
+app.use(cookieParser());
 
 dotenv.config();
 const connect = () => {
@@ -28,9 +30,6 @@ const connect = () => {
       throw error;
     });
 };
-
-app.use(cookieParser());
-app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userrouter);

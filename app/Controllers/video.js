@@ -94,17 +94,35 @@ async function trend(req, res) {
     res.status(500).json(error);
   }
 }
-async function subscribes(req, res) {
-  // res.status(200).json({ message: "SALAM" });
+// async function subscribes(req, res) {
+//   // res.status(200).json({ message: "SALAM" });
+//   try {
+//     const user = await User.findById(req.user.id);
+//     const subscribedChannels = user.subscribedUsers;
+//     const list = await Promise.all(
+//       subscribedChannels.map(async (channelId) => {
+//         return await Video.find({ userId: channelId });
+//       })
+//     );
+//     const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
+//     console.log("responseData", responseData);
+//     res.json(responseData);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// }
 
+const subscribes = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
     const subscribedChannels = user.subscribedUsers;
+
     const list = await Promise.all(
       subscribedChannels.map(async (channelId) => {
         return await Video.find({ userId: channelId });
       })
     );
+<<<<<<< HEAD
     const responseData = list.flat().sort((a, b) => b.createdAt - a.createdAt);
     console.log("responseData", responseData);
     res.status(200).json(responseData);
@@ -112,10 +130,25 @@ async function subscribes(req, res) {
     res.status(500).json(error);
   }
 }
+=======
+>>>>>>> 1c639db663287f033eced6fbb3d232b5a41f4928
 
-async function moe(req, res) {
-  res.status(200).json({ message: "SALAM" });
-}
+    res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt));
+
+    // console.log(list, ">>>>>>>>>>>>>>>>>>>>>");
+    // const list = await Promise.all(
+    //   subscribedChannels.map(async (channelId) => {
+    //     return await Video.find({ userId: channelId });
+    //   })
+    // );
+    // console.log(list, ">>>>>>>>>>>>>>>>>>>>>>>>");
+
+    // res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt));
+  } catch (err) {
+    next(err);
+  }
+};
+
 async function bytags(req, res) {
   const tags = req.query.tags.split(",");
   try {
@@ -149,5 +182,4 @@ export {
   bytags,
   search,
   trend,
-  moe,
 };

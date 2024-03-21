@@ -62,11 +62,16 @@ const Avatar = styled.img`
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 function Navbar() {
   const { currentUser } = useSelector((state) => state.user);
+<<<<<<< HEAD
   const [open, setOpen] = useState(false);
+=======
+  const { open, setOpen } = useState(false);
+>>>>>>> 1c639db663287f033eced6fbb3d232b5a41f4928
   // console.log(currentUser, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.image, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.name, "currentUser>>>>>>>>>>>>");
@@ -80,12 +85,16 @@ function Navbar() {
           </Search>
           {currentUser ? (
             <User>
+<<<<<<< HEAD
               <VideoCallIcon
                 style={{
                   cursor: "pointer",
                 }}
                 onClick={() => setOpen(true)}
               />
+=======
+              <VideoCallIcon onClick={() => setOpen(true)} />
+>>>>>>> 1c639db663287f033eced6fbb3d232b5a41f4928
               <Avatar src={currentUser.image || currentUser.other.image} />
               {currentUser.name || currentUser.other.name}
             </User>
@@ -99,7 +108,11 @@ function Navbar() {
           )}
         </Warpper>
       </Container>
+<<<<<<< HEAD
       {open && <Upload setOpen={setOpen} />}
+=======
+      {open && <Upload setOpen={false} />}
+>>>>>>> 1c639db663287f033eced6fbb3d232b5a41f4928
     </>
   );
 }

@@ -1,5 +1,9 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import { format } from "timeago.js";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import axios from "axios";
 const Container = styled.div`
   display: flex;
   gap: 24px;
@@ -70,7 +74,6 @@ const ChannelName = styled.span`
   font-weight: 500;
   font-size: 12px;
   margin: 10px 0px;
-
 `;
 const ChannelDate = styled.data`
   margin-top: 5px;
@@ -102,24 +105,38 @@ const Commentdiv = styled.div`
   align-items: center;
 `;
 
-function Comment() {
+function Comment({ comment }) {
+  const { currentUser } = useSelector((state) => state.user);
+  const [channel, setChannel] = useState(null);
+
+  useEffect(() => {
+    const channelFetch = async () => {
+      try {
+        const channelRes = await axios.get(
+          `http://localhost:8000/api/user/find/${comment.userId}`
+        );
+        setChannel(channelRes.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    channelFetch();
+  }, [comment.userId]);
+  console.log(channel, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>channel");
+
   return (
     <Container>
-      {" "}
       <Channelinfo>
-        <Image src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo" />
+        <Image src={channel?.image} />
         <ChannelDetails>
           <Commentdiv>
-            {" "}
             <ChannelName>
-              code with MR <ChannelDate>12-5-2023</ChannelDate>
+              {/* {comment?.desc}{" "} */}
+              {channel?.name}
+              <ChannelDate>{format(comment?.createdAt)}</ChannelDate>
             </ChannelName>
           </Commentdiv>
-          <Discription>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus illo
-            ipsum natus repudiandae? Recusandae, odio distinctio reprehenderit
-            tempora libero corporis.
-          </Discription>
+          <Discription>{comment?.desc}</Discription>
         </ChannelDetails>
       </Channelinfo>
     </Container>
