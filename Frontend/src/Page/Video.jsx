@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { format } from "timeago.js";
-import { Dislike, FetchSucces, Like, Subscribes } from "../Redux/VideoSlice.js";
+import { Dislike, FetchSucces, Like } from "../Redux/VideoSlice.js";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import Recommendation from "../Components/Recommendation.jsx";
 
@@ -32,6 +32,11 @@ const Titte = styled.h1`
   color: ${({ theme }) => theme.text};
 `;
 
+const VideoFrame = styled.video`
+  max-height: 720px;
+  width: 100%;
+  object-fit: cover;
+`;
 const Details = styled.div`
   display: flex;
   align-items: center;
@@ -176,7 +181,6 @@ function Video() {
       const response = await axios.put(
         `http://localhost:8000/api/user/subscribe/${channel._id}`
       );
-
       if (response.status === 201) {
         console.log("Already subscribed");
       } else if (response.status === 200) {

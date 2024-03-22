@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDtEGWIkLoA1mozHd9DZwzV4DZv13xyxuo",
   authDomain: "video-sharing-app-f1f97.firebaseapp.com",

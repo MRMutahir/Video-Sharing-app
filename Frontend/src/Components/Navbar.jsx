@@ -94,7 +94,12 @@ function Navbar() {
           </Search>
           {currentUser ? (
             <User>
-              <VideoCallIcon onClick={() => setOpen(true)} />
+              <VideoCallIcon
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => setOpen(true)}
+              />
               <Avatar src={currentUser.image || currentUser.other.image} />
               {currentUser.name || currentUser.other.name}
             </User>
@@ -108,7 +113,7 @@ function Navbar() {
           )}
         </Warpper>
       </Container>
-      {open && <Upload setOpen={false} />}
+      {open && <Upload setOpen={setOpen} />}
     </>
   );
 }
