@@ -72,11 +72,11 @@ const Avatar = styled.img`
 
 function Navbar() {
   const { currentUser } = useSelector((state) => state.user);
-  const { open, setOpen } = useState(false);
+  const [open, setOpenModal] = useState(false); // Correct initialization
   const [q, setQ] = useState("");
   const navigate = useNavigate();
-  console.log(q, ">>>>>>>>>>>>>>q");
 
+  // console.log(open, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>open");
   // console.log(currentUser, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.image, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.name, "currentUser>>>>>>>>>>>>");
@@ -98,10 +98,11 @@ function Navbar() {
                 style={{
                   cursor: "pointer",
                 }}
-                onClick={() => setOpen(true)}
+                // onClick={() => setOpen(true)}
+                onClick={() => setOpenModal(true)}
               />
-              <Avatar src={currentUser.image || currentUser.other.image} />
-              {currentUser.name || currentUser.other.name}
+              <Avatar src={currentUser?.image || currentUser?.other.image} />
+              {currentUser?.name || currentUser?.other.name}
             </User>
           ) : (
             <Link to="signin" style={{ textDecoration: "none" }}>
@@ -113,7 +114,7 @@ function Navbar() {
           )}
         </Warpper>
       </Container>
-      {open && <Upload setOpen={setOpen} />}
+      {open && <Upload setOpen={setOpenModal} />}
     </>
   );
 }

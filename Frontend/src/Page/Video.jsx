@@ -31,7 +31,6 @@ const Titte = styled.h1`
   margin-bottom: 10px;
   color: ${({ theme }) => theme.text};
 `;
-
 const VideoFrame = styled.video`
   max-height: 720px;
   width: 100%;
@@ -104,11 +103,6 @@ const Image = styled.img`
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  object-fit: cover;
-`;
-const VideoFrame = styled.video`
-  max-height: 720px;
-  width: 100%;
   object-fit: cover;
 `;
 
@@ -267,22 +261,7 @@ function Video() {
         <HR />
         <Comments videoId={currentVideo?._id} />
       </Content>
-      {/* <Recommendation>
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-      </Recommendation> */}
+
       <Recommendation tags={currentVideo?.tags} />
     </Container>
   );
