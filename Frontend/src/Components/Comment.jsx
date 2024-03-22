@@ -107,7 +107,7 @@ const Commentdiv = styled.div`
 
 function Comment({ comment }) {
   const { currentUser } = useSelector((state) => state.user);
-  const [channel, setChannel] = useState(null);
+  const [channel, setChannel] = useState("");
 
   useEffect(() => {
     const channelFetch = async () => {
@@ -122,7 +122,7 @@ function Comment({ comment }) {
     };
     channelFetch();
   }, [comment.userId]);
-  console.log(channel, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>channel");
+  // console.log(channel, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>channel");
 
   return (
     <Container>

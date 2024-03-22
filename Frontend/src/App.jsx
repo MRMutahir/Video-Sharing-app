@@ -9,6 +9,7 @@ import Sign from "../src/Page/Sign";
 import Video from "./Page/Video";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
+import Search from "./Page/Search";
 // import Signin from "./Page/Signin";
 // import Home from "@mui/icons-material/Home";
 const Container = styled.div`
@@ -49,6 +50,7 @@ function App() {
                 <Route index element={<Home type="random" />} />
                 <Route path="trends" element={<Home type="trend" />} />
                 <Route path="subscribes" element={<Home type="subscribes" />} />
+                <Route path="Search" element={<Search />} />
                 <Route path="signin" element={<Sign />} />
                 <Route element={<Sign />} />
                 <Route path="video">

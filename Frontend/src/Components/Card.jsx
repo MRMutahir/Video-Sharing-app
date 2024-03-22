@@ -49,15 +49,7 @@ const Info = styled.div`
   color: ${({ theme }) => theme.textSoft};
 `;
 function Card({ type, video }) {
-  // console.log(Card._id == "64f46e504b234353ada20ede");
-  // console.log(
-  //   video.userId,
-  //   ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>video"
-  // );
-  // console.log(
-  //   video,
-  //   ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>video.userId"
-  // );
+  // console.log(video.data, ">>>>>>>>>>>>>>>>>>>>>>>>video.data");
   const [channel, setChannel] = useState({});
   useEffect(() => {
     fetchChannel();
@@ -74,9 +66,6 @@ function Card({ type, video }) {
       console.log("err", error);
     }
   };
-  // console.log(channel, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>channel");
-  // console.log(video.imgUrl, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>video.imgURL");
-  // console.log(video, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>video.imgURL");
 
   return (
     <Link to={`/video/${video._id}`} style={{ textDecoration: "none" }}>

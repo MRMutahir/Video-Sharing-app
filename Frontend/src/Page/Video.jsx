@@ -11,6 +11,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 import { Dislike, FetchSucces, Like, Subscribes } from "../Redux/VideoSlice.js";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import Recommendation from "../Components/Recommendation.jsx";
 
 const Container = styled.div`
   display: flex;
@@ -19,10 +20,6 @@ const Container = styled.div`
 
 const Content = styled.div`
   flex: 5;
-`;
-
-const Recommendation = styled.div`
-  flex: 2;
 `;
 
 const VideoWrapper = styled.div``;
@@ -102,6 +99,11 @@ const Image = styled.img`
   height: 40px;
   width: 40px;
   border-radius: 50%;
+  object-fit: cover;
+`;
+const VideoFrame = styled.video`
+  max-height: 720px;
+  width: 100%;
   object-fit: cover;
 `;
 
@@ -189,7 +191,7 @@ function Video() {
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
+          {/* <iframe
             width="853"
             height="480"
             src="https://www.youtube.com/embed/njC3p49OJWU"
@@ -197,7 +199,8 @@ function Video() {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
-          ></iframe>
+          ></iframe> */}
+          <VideoFrame src={currentVideo?.videoUrl} controls autoPlay />
         </VideoWrapper>
         <Titte>{currentVideo?.title}</Titte>
         <Details>
@@ -276,6 +279,7 @@ function Video() {
         <Card type="sm" />
         <Card type="sm" />
       </Recommendation> */}
+      <Recommendation tags={currentVideo?.tags} />
     </Container>
   );
 }

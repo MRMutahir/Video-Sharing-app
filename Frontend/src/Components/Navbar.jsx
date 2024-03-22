@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Upload from "./Upload";
 
 const Container = styled.div`
@@ -32,11 +33,15 @@ const Search = styled.div`
   margin: auto;
   padding: 5px;
   border: 1px solid #ccc;
+  color: ${({ theme }) => theme.text};
   border-radius: 10px;
 `;
 const Input = styled.input`
   border: none;
   background-color: transparent;
+  color: ${({ theme }) => theme.text};
+  width: 100%;
+  outline: none;
 `;
 const Button = styled.button`
   padding: 5px 15px;
@@ -68,6 +73,10 @@ const Avatar = styled.img`
 function Navbar() {
   const { currentUser } = useSelector((state) => state.user);
   const { open, setOpen } = useState(false);
+  const [q, setQ] = useState("");
+  const navigate = useNavigate();
+  console.log(q, ">>>>>>>>>>>>>>q");
+
   // console.log(currentUser, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.image, "currentUser>>>>>>>>>>>>");
   // console.log(currentUser.other.name, "currentUser>>>>>>>>>>>>");
@@ -76,8 +85,12 @@ function Navbar() {
       <Container>
         <Warpper>
           <Search>
-            <Input type="text" placeholder="Search" />
-            <SearchIcon />
+            <Input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => setQ(e.target.value)}
+            />
+            <SearchIcon onClick={() => navigate(`/search?q=${q}`)} />
           </Search>
           {currentUser ? (
             <User>
