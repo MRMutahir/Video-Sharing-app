@@ -1,4 +1,4 @@
-import React from "react";
+
 import styled from "styled-components";
 import MRTubeLogo from "./logo.png";
 import { Link } from "react-router-dom";
@@ -24,7 +24,8 @@ import { useSelector } from "react-redux";
 const Container = styled.div`
   flex: 1;
   background-color: ${({ theme }) => theme.bgLighter};
-  height: 100%;
+  min-height: 100%;
+  max-height: 100vh;
   color: ${({ theme }) => theme.text};
   position: sticky;
   top: 0;
