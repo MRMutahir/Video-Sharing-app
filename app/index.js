@@ -7,12 +7,15 @@ import { commentrouter } from "./routes/comment.js";
 import { authRoutes } from "./routes/auth.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import path from "path";
+
+const __dirname = path.resolve();
 
 let app = express();
 let port = 8000;
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:8000"],
     credentials: true,
   })
 );
@@ -35,6 +38,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userrouter);
 app.use("/api/video", videorouter);
 app.use("/api/comment", commentrouter);
+
+app.use(express.static(path.join(__dirname, "./Frontend/dist")));
+app.get(express.static(path.join(__dirname, "./Frontend/dist")));
+app.use("*", express.static(path.join(__dirname, "./Frontend/dist")));
 
 app.listen(port, () => {
   connect();
