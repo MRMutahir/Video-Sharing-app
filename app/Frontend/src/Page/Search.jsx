@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import RecommendationCard from "../Components/RecommendationCard";
+import BASE_URL from "../service/service";
 
 const Container = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ const Search = () => {
   useEffect(() => {
     const fetchdataFoo = async () => {
       const fetchdata = await axios.get(
-        `http://localhost:8000/api/video/search/${qery}`
+        `${BASE_URL}/api/video/search/${qery}`
       );
       setVideo(fetchdata);
       //   console.log(fetchdata, " fetchdata>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");

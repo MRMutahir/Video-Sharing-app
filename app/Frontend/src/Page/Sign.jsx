@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { LoginFailure, LoginStart, LoginSucces } from "../Redux/userSlice";
 import { auth, provider } from "../FirebaseConfig.js";
 import { signInWithPopup } from "firebase/auth";
+import BASE_URL from "../service/service.js";
+// import axiosInstance from "../service/service.js";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,10 +79,16 @@ function Sign() {
     e.preventDefault();
     dispatch(LoginStart());
     try {
-      const response = await axios.post(
-        `http://localhost:8000/api/auth/signin`,
-        { name, password }
-      );
+      const response = await axios.post(`${BASE_URL}/api/auth/signin`, {
+        name,
+        password,
+      });
+      // const response = await axiosInstance.post("/auth/signin", {
+      //   name,
+      //   password,
+      // });
+
+      // console.log("response", response);
       dispatch(LoginSucces(response.data));
     } catch (error) {
       dispatch(LoginFailure());

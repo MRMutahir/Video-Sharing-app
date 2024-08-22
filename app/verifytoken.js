@@ -3,7 +3,7 @@ import "dotenv/config";
 
 const verifytoken = (req, res, next) => {
   const token = req.cookies["access_token"];
-  console.log(token, "token>>>>>>>>>>>>>>>>>>>>>>");
+  // console.log(token, "token>>>>>>>>>>>>>>>>>>>>>>");
   if (!token) {
     return res.status(401).json({ message: "Unauthorized: No token provided" });
   }
@@ -13,7 +13,7 @@ const verifytoken = (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized: Invalid token" });
     }
     req.user = decoded;
-    console.log(decoded, ".>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    // console.log(decoded, ".>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     next();
   });
 };

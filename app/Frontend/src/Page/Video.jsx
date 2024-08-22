@@ -12,6 +12,7 @@ import { format } from "timeago.js";
 import { Dislike, FetchSucces, Like } from "../Redux/VideoSlice.js";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import Recommendation from "../Components/Recommendation.jsx";
+import BASE_URL from "../service/service.js";
 
 const Container = styled.div`
   display: flex;
@@ -139,12 +140,10 @@ function Video() {
 
     const fetchData = async () => {
       try {
-        const videoRes = await axios.get(
-          `http://localhost:8000/api/video/find/${path}`
-        );
+        const videoRes = await axios.get(`${BASE_URL}/api/video/find/${path}`);
         // console.log(videoRes, "videoRes>>>>>>>>>>>>>>>>>>");
         const channelRes = await axios.get(
-          `http://localhost:8000/api/user/find/${videoRes.data.userId}`
+          `${BASE_URL}/api/user/find/${videoRes.data.userId}`
         );
         // console.log(channelRes, "channelRes>>>>>>>>>>>>>>>>>>");
         setchannel(channelRes.data);

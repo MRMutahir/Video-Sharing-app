@@ -15,7 +15,7 @@ let app = express();
 let port = 8000;
 app.use(
   cors({
-    origin: ["http://localhost:8000"],
+    origin: ["http://localhost:5173"],
     credentials: true,
   })
 );
@@ -33,6 +33,9 @@ const connect = () => {
       throw error;
     });
 };
+app.get("/", (req, res) => {
+  res.send("SALAM every one");
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userrouter);
@@ -45,7 +48,7 @@ app.use("*", express.static(path.join(__dirname, "./Frontend/dist")));
 
 app.listen(port, () => {
   connect();
-  console.log(" Server  Start", port);
+  console.log(`http://localhost:${port}`);
 });
 // app.use((error, req, res, next) => {
 //   const status = error.status || 500;

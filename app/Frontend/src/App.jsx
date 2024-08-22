@@ -10,8 +10,7 @@ import Video from "./Page/Video";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import Search from "./Page/Search";
-// import Signin from "./Page/Signin";
-// import Home from "@mui/icons-material/Home";
+
 const Container = styled.div`
   display: flex;
 `;
